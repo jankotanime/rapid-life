@@ -1,41 +1,51 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-void paint(sf::RenderWindow& window) {
-    // Tworzymy kształt - np. okrąg
-    sf::CircleShape shape(20.f);
-    shape.setFillColor(sf::Color(100, 250, 50));  // Ustawiamy kolor wypełnienia
-
-    // Rysowanie obiektu na ekranie
-    window.draw(shape);
-}
+void context_paint(sf::RenderWindow&, int, int);
+void menu_paint(sf::RenderWindow&, int, int);
 
 int main() {
-    // Tworzymy okno o rozmiarze 800x600
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Rapid Life");
+  // sf::ContextSettings settings;
+  // settings.antialiasingLevel = 0;
+  // settings.majorVersion = 2;
+  // settings.minorVersion = 1;
+  // settings.attributeFlags = sf::ContextSettings::Default;
 
-    // Ustawiamy limit klatek na sekundę
-    window.setFramerateLimit(60);
+  int WIDTH = 800;
+  int HEIGHT = 600;
+  int menu = true;
 
-    // Pętla główna, która działa dopóki okno jest otwarte
-    while (window.isOpen()) {
-        sf::Event event;
-        
-        // Przechodzimy przez wszystkie zdarzenia
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed)
-                window.close();  // Zamykamy okno, gdy zdarzenie "Closed" następuje
-        }
+  sf::RenderWindow window(
+    sf::VideoMode(WIDTH, HEIGHT),
+    "Rapid life",
+    sf::Style::Default
+    // settings
+  );
 
-        // Czyszczenie okna przed narysowaniem nowego klatki
-        window.clear();
+  if (!window.isOpen()) {
+    std::cerr << "BLAD: Nie mozna utworzyc okna! Sprawdz czy X Server";
+    std::cerr << "jest uruchomiony i czy zmienna DISPLAY jest ustawiona?\n";
+    return 1;
+  }
 
-        // Wywołanie funkcji paint, która rysuje obiekt
-        paint(window);
+  window.setPosition({0, 0});
 
-        // Pokazujemy zawartość okna
-        window.display();
+  while (window.isOpen()) {
+    sf::Event event;
+    while (window.pollEvent(event)) {
+      if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+        window.close();
     }
 
-    return 0;
+    window.clear(sf::Color::Black);
+    context_paint(window, WIDTH, HEIGHT);
+    if (menu) {
+      menu_paint(window, WIDTH, HEIGHT);
+    }
+    window.display();
+  }
+
+  return 0;
 }
+
+// export DISPLAY=$(ip route list default | awk '{print $3}'):0
