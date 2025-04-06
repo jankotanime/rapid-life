@@ -5,6 +5,9 @@
 #include <forward_list>
 #include <iostream>
 #include "Object.hpp"
+#include "Fruit.hpp"
+#include "Animal.hpp"
+#include "Map.hpp"
 
 class App {
 public:
@@ -13,17 +16,19 @@ public:
   int menu = true;
   int start = false;
   int initial = false;
-  std::forward_list<Object> objects;
-  App();
+  std::forward_list<Animal> animals;
+  std::forward_list<Object> fruits;
+  App(sf::ContextSettings, std::string);
   void run();
-
-private:
+  
+  private:
   void processEvents();
   void update(sf::Time);
   void render();
   void init();
   void close();
   sf::RenderWindow window;
+  Map map;
 };
 
 #endif

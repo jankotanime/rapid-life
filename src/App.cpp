@@ -1,7 +1,7 @@
 #include "App.hpp"
 #include <iostream>
 
-App::App() : window(sf::VideoMode(App::WIDTH, App::HEIGHT), "Rapid life", sf::Style::Default) {
+App::App(sf::ContextSettings s, std::string name) : window(sf::VideoMode(App::WIDTH, App::HEIGHT), name, sf::Style::Default, s) {
   window.setFramerateLimit(60);
 }
 
@@ -27,17 +27,21 @@ void App::run() {
 void App::init() {
   menu = false;
   start = true;
-  Object object1 = Object(100, 200);
-  Object object2 = Object(200, 100);
+  Animal object1 = Animal(100, 200);
+  Animal object2 = Animal(200, 100);
+  Fruit fruit = Fruit(500, 400);
+  map = Map(500, 500);
 
-  objects.push_front(object1);
-  objects.push_front(object2);
+  animals.push_front(object1);
+  animals.push_front(object2);
+  fruits.push_front(fruit);
 
   initial = false;
 }
 
 void App::close() {
-  objects.clear();
+  animals.clear();
+  fruits.clear();
   window.clear();
   window.close();
 }
@@ -71,8 +75,8 @@ void App::update(sf::Time deltaTime) {
   if (initial) {
     init();
   }
-  for (Object& object : objects) {
-    object.move(deltaTime.asMilliseconds());
+  for (Animal& animal : animals) {
+    animal.move(deltaTime.asMilliseconds());
   }
 }
 
@@ -80,7 +84,11 @@ void App::render() {
   context_paint(window, App::WIDTH, App::HEIGHT);
   if (menu) menu_paint(window, App::WIDTH, App::HEIGHT);
   if (start) {
-    for (Object& object : objects) {
+    map.draw(window);
+    for (Object& object : animals) {
+      object.draw(window);
+    }
+    for (Object& object : fruits) {
       object.draw(window);
     }
   }
