@@ -7,9 +7,12 @@
 class Animal : public Object {
   public:
   Animal(int, int);
+  void change_direction(int);
   void move(float);
+  double direction; 
+  double speed = 0.1;
   private:
-  double speed = 0.04; 
+  bool run = false;
 };
 
 #endif

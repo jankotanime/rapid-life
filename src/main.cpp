@@ -9,3 +9,5 @@ int main() {
   app.run();
   return 0;
 }
+
+// export DISPLAY=$(ip route list default | awk '{print $3}'):0

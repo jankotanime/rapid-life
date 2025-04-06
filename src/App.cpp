@@ -27,10 +27,10 @@ void App::run() {
 void App::init() {
   menu = false;
   start = true;
-  Animal object1 = Animal(100, 200);
-  Animal object2 = Animal(200, 100);
+  Animal object1 = Animal(400, 400);
+  Animal object2 = Animal(400, 400);
   Fruit fruit = Fruit(500, 400);
-  map = Map(500, 500);
+  map = Map(App::WIDTH, App::HEIGHT);
 
   animals.push_front(object1);
   animals.push_front(object2);

@@ -5,19 +5,18 @@
 
 Biome getRandomBiome() {
     int r = rand() % 100;
-    if (r < 60) return Grass;
+    if (r < 70) return Grass;
     else if (r < 90) return Forest;
     else return Water;
 }
-
 
 Map::Map() {}
 
 Map::Map(int x, int y) : borderX(x), borderY(y) {
   for (int actY = 0; actY < borderY;) {
     int actEndY = actY + (rand() % 21)+40;
-    if (actEndY >= 500) {
-      actEndY = 500;
+    if (actEndY >= borderY) {
+      actEndY = borderY;
     }
     int actX = 0;
     int actEndX = 0;
@@ -32,13 +31,12 @@ Map::Map(int x, int y) : borderX(x), borderY(y) {
         actX = borderX;
         actEndX = borderX;
       }
-      points.push_back({static_cast<float>(actX), static_cast<float>(actY)});
       points.push_back({static_cast<float>(actEndX), static_cast<float>(actEndY)});
+      points.push_back({static_cast<float>(actX), static_cast<float>(actY)});
       convex.setPointCount(points.size());
-      convex.setPoint(0, points[0]);
-      convex.setPoint(1, points[1]);
-      convex.setPoint(3, points[2]);
-      convex.setPoint(2, points[3]);
+      for (int i = 0; i < 4; i++) {
+        convex.setPoint(i, points[i]);
+      }
       Biome biome = getRandomBiome();
       switch (biome)
       {
