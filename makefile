@@ -27,7 +27,7 @@ $(TARGET): $(OBJECTS)
 
 # Kompilacja każdego pliku .cpp do .o
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
-	@mkdir -p $(BUILD_DIR)/$(dir $<)  # Tworzenie odpowiednich katalogów
+	@mkdir -p $(dir $@)
 	@echo "Kompilowanie: $(CXX) $(CXXFLAGS) -c $< -o $@"
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 

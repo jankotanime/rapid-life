@@ -1,4 +1,4 @@
-#include "../../include/Paint.hpp"
+#include "App.hpp"
 
 void context_paint(sf::RenderWindow& window, int w, int h) {
   sf::RectangleShape border({w*1.f, h*1.f});
