@@ -71,14 +71,14 @@ void App::processEvents() {
         case sf::Keyboard::Up: y+=5/zoom; break;
         case sf::Keyboard::Down: y-=5/zoom; break;
         case sf::Keyboard::PageUp: if (zoom < 2) {
-          zoom+=0.1; 
-          x-=round(0.05*WIDTH-x*0.1); 
-          y-=round(0.05*HEIGHT-y*0.1); 
+          zoom+=0.1;
+          x-=round(0.05*WIDTH-x*0.1);
+          y-=round(0.05*HEIGHT-y*0.1);
         } break;
         case sf::Keyboard::PageDown: if (zoom > 0.3) {
-          zoom-=0.1; 
-          x+=round(0.05*WIDTH-x*0.1); 
-          y+=round(0.05*HEIGHT-y*0.1); 
+          zoom-=0.1;
+          x+=round(0.05*WIDTH-x*0.1);
+          y+=round(0.05*HEIGHT-y*0.1);
         } break;
         default:
         break;
@@ -101,7 +101,8 @@ void App::render() {
   if (menu) menu_paint(window, App::WIDTH, App::HEIGHT);
   if (start) {
     map.draw(window, x, y, zoom);
-    for (Object& object : animals) {
+    for (Animal& object : animals) {
+      object.draw_vision(window, x, y, mapWIDTH, mapHEIGHT, zoom);
       object.draw(window, x, y, mapWIDTH, mapHEIGHT, zoom);
     }
     for (Object& object : fruits) {

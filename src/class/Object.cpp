@@ -5,6 +5,7 @@
 Object::Object(int x, int y, int s) : x(x), y(y), size(s) {}
 
 void Object::draw(sf::RenderWindow& window, int mapX, int mapY, int mapWIDTH, int mapHEIGHT, double zoom) {
+  shape.setScale({zoom*1.f, zoom*1.f});
   if (x < -size) {
     x = mapWIDTH - size;
   } else if (x > mapWIDTH - size) {
@@ -29,10 +30,9 @@ void Object::draw(sf::RenderWindow& window, int mapX, int mapY, int mapWIDTH, in
     } else if (y > mapHEIGHT - 2 * size) {
       secondDrawY = y - mapHEIGHT;
     }
-    shape.setPosition(secondDrawX+mapX, secondDrawY+mapY);
+    shape.setPosition(secondDrawX*zoom+mapX, secondDrawY*zoom+mapY);
     window.draw(shape);
   }
   shape.setPosition(x*zoom+mapX, y*zoom+mapY);
-  shape.setScale({zoom*1.f, zoom*1.f});
   window.draw(shape);
 }
