@@ -5,13 +5,14 @@
 
 class Object {
   public:
-    Object(int, int);
-    void draw(sf::RenderWindow&);
+    Object(int, int, int);
+    void draw(sf::RenderWindow&, int, int, int, int);
     sf::CircleShape shape;
   
   protected:
     int x;
     int y;
+    int size;
 };
 
 #endif

@@ -6,7 +6,7 @@
 
 class Fruit : public Object {
   public:
-    Fruit(int, int);
+    Fruit(int, int, int);
 };
 
 #endif

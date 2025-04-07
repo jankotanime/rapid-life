@@ -27,10 +27,12 @@ void App::run() {
 void App::init() {
   menu = false;
   start = true;
-  Animal object1 = Animal(400, 400);
-  Animal object2 = Animal(400, 400);
-  Fruit fruit = Fruit(500, 400);
-  map = Map(App::WIDTH, App::HEIGHT);
+  Animal object1 = Animal(400, 400, 6);
+  Animal object2 = Animal(400, 400, 6);
+  Fruit fruit = Fruit(500, 400, 3);
+  map = Map(App::mapWIDTH, App::mapHEIGHT);
+  x = 0;
+  y = 0;
 
   animals.push_front(object1);
   animals.push_front(object2);
@@ -52,9 +54,7 @@ void App::processEvents() {
     if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) close();
     if (menu) {
       switch (event.key.code) {
-        case sf::Keyboard::Space:
-          initial = true;
-          break;
+        case sf::Keyboard::Space: initial = true; break;
         default:
           break;
       }
@@ -62,8 +62,12 @@ void App::processEvents() {
     if (start) {
       switch (event.key.code) {
         case sf::Keyboard::Space:
-        std::cout<< "space" << std::endl;
+        std::cout<< "space" << std::endl;       
         break;
+        case sf::Keyboard::Left: x--; break;
+        case sf::Keyboard::Right: x++; break;
+        case sf::Keyboard::Up: y--; break;
+        case sf::Keyboard::Down: y++; break;
         default:
         break;
       }
@@ -84,12 +88,12 @@ void App::render() {
   context_paint(window, App::WIDTH, App::HEIGHT);
   if (menu) menu_paint(window, App::WIDTH, App::HEIGHT);
   if (start) {
-    map.draw(window);
+    map.draw(window, x, y);
     for (Object& object : animals) {
-      object.draw(window);
+      object.draw(window, x, y, mapWIDTH, mapHEIGHT);
     }
     for (Object& object : fruits) {
-      object.draw(window);
+      object.draw(window, x, y, mapWIDTH, mapHEIGHT);
     }
   }
 

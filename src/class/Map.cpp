@@ -58,8 +58,9 @@ Map::Map(int x, int y) : borderX(x), borderY(y) {
   }
 }
 
-void Map::draw(sf::RenderWindow& window) {
+void Map::draw(sf::RenderWindow& window, int mapX, int mapY) {
   for (Chunk chunk : chunks) {
+    chunk.convex.setPosition({mapX, mapY});
     window.draw(chunk.convex);
   }
 }

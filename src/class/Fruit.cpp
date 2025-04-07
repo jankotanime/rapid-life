@@ -2,7 +2,7 @@
 #include <iostream>
 #include "Fruit.hpp"
 
-Fruit::Fruit(int x, int y) : Object(x, y) {
-  shape.setRadius(3.f);
+Fruit::Fruit(int x, int y, int s) : Object(x, y, s) {
+  shape.setRadius(s*1.f);
   shape.setFillColor(sf::Color(200, 90, 90));
 }

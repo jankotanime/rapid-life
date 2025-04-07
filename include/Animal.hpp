@@ -6,7 +6,7 @@
 
 class Animal : public Object {
   public:
-  Animal(int, int);
+  Animal(int, int, int);
   void change_direction(int);
   void move(float);
   double direction; 
