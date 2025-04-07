@@ -1,5 +1,6 @@
 #include "App.hpp"
 #include <iostream>
+#include <math.h>
 
 App::App(sf::ContextSettings s, std::string name) : window(sf::VideoMode(App::WIDTH, App::HEIGHT), name, sf::Style::Default, s) {
   window.setFramerateLimit(60);
@@ -27,12 +28,13 @@ void App::run() {
 void App::init() {
   menu = false;
   start = true;
-  Animal object1 = Animal(400, 400, 6);
-  Animal object2 = Animal(400, 400, 6);
+  Animal object1 = Animal(400, 400, 10);
+  Animal object2 = Animal(400, 400, 10);
   Fruit fruit = Fruit(500, 400, 3);
   map = Map(App::mapWIDTH, App::mapHEIGHT);
   x = 0;
   y = 0;
+  zoom = 1;
 
   animals.push_front(object1);
   animals.push_front(object2);
@@ -64,10 +66,20 @@ void App::processEvents() {
         case sf::Keyboard::Space:
         std::cout<< "space" << std::endl;       
         break;
-        case sf::Keyboard::Left: x--; break;
-        case sf::Keyboard::Right: x++; break;
-        case sf::Keyboard::Up: y--; break;
-        case sf::Keyboard::Down: y++; break;
+        case sf::Keyboard::Left: x+=5/zoom; break;
+        case sf::Keyboard::Right: x-= 5/zoom; break;
+        case sf::Keyboard::Up: y+=5/zoom; break;
+        case sf::Keyboard::Down: y-=5/zoom; break;
+        case sf::Keyboard::PageUp: if (zoom < 2) {
+          zoom+=0.1; 
+          x-=round(0.05*WIDTH-x*0.1); 
+          y-=round(0.05*HEIGHT-y*0.1); 
+        } break;
+        case sf::Keyboard::PageDown: if (zoom > 0.3) {
+          zoom-=0.1; 
+          x+=round(0.05*WIDTH-x*0.1); 
+          y+=round(0.05*HEIGHT-y*0.1); 
+        } break;
         default:
         break;
       }
@@ -88,12 +100,12 @@ void App::render() {
   context_paint(window, App::WIDTH, App::HEIGHT);
   if (menu) menu_paint(window, App::WIDTH, App::HEIGHT);
   if (start) {
-    map.draw(window, x, y);
+    map.draw(window, x, y, zoom);
     for (Object& object : animals) {
-      object.draw(window, x, y, mapWIDTH, mapHEIGHT);
+      object.draw(window, x, y, mapWIDTH, mapHEIGHT, zoom);
     }
     for (Object& object : fruits) {
-      object.draw(window, x, y, mapWIDTH, mapHEIGHT);
+      object.draw(window, x, y, mapWIDTH, mapHEIGHT, zoom);
     }
   }
 

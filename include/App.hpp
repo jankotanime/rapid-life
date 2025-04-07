@@ -13,12 +13,13 @@ class App {
 public:
   int WIDTH = 800;
   int HEIGHT = 600;
-  int mapWIDTH = 800;
-  int mapHEIGHT = 600;
+  int mapWIDTH = 1600;
+  int mapHEIGHT = 1200;
   int menu = true;
   int start = false;
   int initial = false;
   int x, y;
+  double zoom;
   std::forward_list<Animal> animals;
   std::forward_list<Object> fruits;
   App(sf::ContextSettings, std::string);

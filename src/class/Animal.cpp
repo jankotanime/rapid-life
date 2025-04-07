@@ -15,8 +15,8 @@ Animal::Animal(int x, int y, int s) : Object(x, y, s) {
 void Animal::move(float delta) {
   int r = rand() % 21;
   change_direction(r);
-  x += round(delta*speed*cos((direction*PI)/180));
-  y += round(delta*speed*sin((direction*PI)/180));
+  x += 0.5*round(delta*speed*cos((direction*PI)/180));
+  y += 0.5*round(delta*speed*sin((direction*PI)/180));
 }
 
 void Animal::change_direction(int r) {

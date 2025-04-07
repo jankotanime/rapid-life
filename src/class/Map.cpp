@@ -14,7 +14,7 @@ Map::Map() {}
 
 Map::Map(int x, int y) : borderX(x), borderY(y) {
   for (int actY = 0; actY < borderY;) {
-    int actEndY = actY + (rand() % 21)+40;
+    int actEndY = actY + (rand() % 21)+100;
     if (actEndY >= borderY) {
       actEndY = borderY;
     }
@@ -25,8 +25,8 @@ Map::Map(int x, int y) : borderX(x), borderY(y) {
       std::vector<sf::Vector2f> points;
       points.push_back({static_cast<float>(actX), static_cast<float>(actY)});
       points.push_back({static_cast<float>(actEndX), static_cast<float>(actEndY)});
-      actX += (rand() % 21)+40;
-      actEndX += (rand() % 21)+40;
+      actX += (rand() % 21)+100;
+      actEndX += (rand() % 21)+100;
       if (actEndX >= borderX || actX >= borderX) {
         actX = borderX;
         actEndX = borderX;
@@ -58,9 +58,10 @@ Map::Map(int x, int y) : borderX(x), borderY(y) {
   }
 }
 
-void Map::draw(sf::RenderWindow& window, int mapX, int mapY) {
+void Map::draw(sf::RenderWindow& window, int mapX, int mapY, double zoom) {
   for (Chunk chunk : chunks) {
     chunk.convex.setPosition({mapX, mapY});
+    chunk.convex.setScale({zoom*1.f, zoom*1.f});
     window.draw(chunk.convex);
   }
 }

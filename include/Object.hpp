@@ -6,7 +6,7 @@
 class Object {
   public:
     Object(int, int, int);
-    void draw(sf::RenderWindow&, int, int, int, int);
+    void draw(sf::RenderWindow&, int, int, int, int, double);
     sf::CircleShape shape;
   
   protected:

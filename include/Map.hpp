@@ -16,7 +16,7 @@ class Map {
   public:
   Map(int, int);
   Map();
-  void draw(sf::RenderWindow&, int, int);
+  void draw(sf::RenderWindow&, int, int, double);
   private:
   std::forward_list<Chunk> chunks;
   int borderX;
