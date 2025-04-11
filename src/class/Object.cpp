@@ -2,7 +2,9 @@
 #include <iostream>
 #include "Object.hpp"
 
-Object::Object(int x, int y, int s) : x(x), y(y), size(s) {}
+Object::Object(int x, int y, int s) : x(x), y(y), size(s) {
+  shape.setRadius(s*1.f);
+}
 
 void Object::draw(sf::RenderWindow& window, int mapX, int mapY, int mapWIDTH, int mapHEIGHT, double zoom) {
   shape.setScale({zoom*1.f, zoom*1.f});

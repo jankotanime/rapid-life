@@ -30,7 +30,8 @@ void App::init() {
   start = true;
   Bear bear = Bear(400, 400, 15, 120);
   Pig pig = Pig(600, 400, 10, 150);
-  Fruit fruit = Fruit(500, 400, 3);
+  Rabbit rabbit = Rabbit(800, 200, 5, 80);
+  Carrot carrot = Carrot(500, 400, 3);
   map = Map(App::mapWIDTH, App::mapHEIGHT);
   x = 0;
   y = 0;
@@ -38,7 +39,8 @@ void App::init() {
 
   animals.push_front(bear);
   animals.push_front(pig);
-  fruits.push_front(fruit);
+  animals.push_front(rabbit);
+  fruits.push_front(carrot);
 
   initial = false;
 }
@@ -54,34 +56,37 @@ void App::processEvents() {
   sf::Event event;
   while (window.pollEvent(event)) {
     if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) close();
-    if (menu) {
-      switch (event.key.code) {
-        case sf::Keyboard::Space: initial = true; break;
-        default:
-          break;
+    if (event.type == sf::Event::KeyPressed) {
+      if (menu) {
+        switch (event.key.code) {
+          case sf::Keyboard::Space: initial = true; break;
+          default:
+            break;
+        }
       }
-    }
-    if (start) {
-      switch (event.key.code) {
-        case sf::Keyboard::Space:
-        std::cout<< "space" << std::endl;       
-        break;
-        case sf::Keyboard::Left: x+=5/zoom; break;
-        case sf::Keyboard::Right: x-= 5/zoom; break;
-        case sf::Keyboard::Up: y+=5/zoom; break;
-        case sf::Keyboard::Down: y-=5/zoom; break;
-        case sf::Keyboard::PageUp: if (zoom < 2) {
-          zoom+=0.1;
-          x-=round(0.05*WIDTH-x*0.1);
-          y-=round(0.05*HEIGHT-y*0.1);
-        } break;
-        case sf::Keyboard::PageDown: if (zoom > 0.3) {
-          zoom-=0.1;
-          x+=round(0.05*WIDTH-x*0.1);
-          y+=round(0.05*HEIGHT-y*0.1);
-        } break;
-        default:
-        break;
+      if (start) {
+        switch (event.key.code) {
+          case sf::Keyboard::Space:
+          std::cout<< "space" << std::endl;       
+          break;
+          case sf::Keyboard::Left: x+=5/zoom; break;
+          case sf::Keyboard::Right: x-= 5/zoom; break;
+          case sf::Keyboard::Up: y+=5/zoom; break;
+          case sf::Keyboard::Down: y-=5/zoom; break;
+          case sf::Keyboard::PageUp: if (zoom < 2) {
+            zoom+=0.1;
+            x-=round(0.05*WIDTH-x*0.1);
+            y-=round(0.05*HEIGHT-y*0.1);
+          } break;
+          case sf::Keyboard::PageDown: if (zoom > 0.3) {
+            zoom-=0.1;
+            x+=round(0.05*WIDTH-x*0.1);
+            y+=round(0.05*HEIGHT-y*0.1);
+          } break;
+          case sf::Keyboard::Backspace: debug = !debug; break;
+          default:
+          break;
+        }
       }
     }
   }
@@ -101,8 +106,12 @@ void App::render() {
   if (menu) menu_paint(window, App::WIDTH, App::HEIGHT);
   if (start) {
     map.draw(window, x, y, zoom);
+    if (debug) {
+      for (Animal& object : animals) {
+        object.draw_vision(window, x, y, mapWIDTH, mapHEIGHT, zoom);
+      }
+    }
     for (Animal& object : animals) {
-      object.draw_vision(window, x, y, mapWIDTH, mapHEIGHT, zoom);
       object.draw(window, x, y, mapWIDTH, mapHEIGHT, zoom);
     }
     for (Object& object : fruits) {

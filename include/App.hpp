@@ -10,6 +10,8 @@
 #include "Pig.hpp"
 #include "Bear.hpp"
 #include "Map.hpp"
+#include "Carrot.hpp"
+#include "Rabbit.hpp"
 
 class App {
 public:
@@ -17,9 +19,10 @@ public:
   int HEIGHT = 600;
   int mapWIDTH = 2000; // best 2000 - 4000
   int mapHEIGHT = 2000; // best 2000 - 4000
-  int menu = true;
-  int start = false;
-  int initial = false;
+  bool menu = true;
+  bool start = false;
+  bool initial = false;
+  bool debug = false;
   int x, y;
   double zoom;
   std::forward_list<Animal> animals;
