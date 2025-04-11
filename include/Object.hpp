@@ -13,6 +13,7 @@ class Object {
     int x;
     int y;
     int size;
+    int age;
 };
 
 #endif
