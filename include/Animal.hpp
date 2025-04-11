@@ -6,15 +6,15 @@
 
 class Animal : public Object {
   public:
-  Animal(int, int, int);
+  Animal(int, int, int, int);
   void change_direction(int);
   void draw_vision(sf::RenderWindow&, int, int, int, int, double);
   void move(float);
+  protected:
   double direction;
-  double speed = 0.1;
-  private:
+  double speed;
   sf::CircleShape visionShape;
-  int vision = 100;
+  int vision;
   bool run = false;
 };
 

@@ -28,16 +28,16 @@ void App::run() {
 void App::init() {
   menu = false;
   start = true;
-  Animal object1 = Animal(400, 400, 10);
-  Animal object2 = Animal(400, 400, 10);
+  Bear bear = Bear(400, 400, 15, 120);
+  Pig pig = Pig(600, 400, 10, 150);
   Fruit fruit = Fruit(500, 400, 3);
   map = Map(App::mapWIDTH, App::mapHEIGHT);
   x = 0;
   y = 0;
   zoom = 1;
 
-  animals.push_front(object1);
-  animals.push_front(object2);
+  animals.push_front(bear);
+  animals.push_front(pig);
   fruits.push_front(fruit);
 
   initial = false;

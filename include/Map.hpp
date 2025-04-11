@@ -5,7 +5,7 @@
 #include <forward_list>
 #include <iostream>
 
-enum Biome { Grass, Water, Forest };
+enum Biome { Grass, Water, Forest, Savanna };
 
 struct Chunk {
   sf::ConvexShape convex;
