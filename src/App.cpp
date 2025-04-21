@@ -37,17 +37,20 @@ void App::init() {
   y = 0;
   zoom = 1;
 
-  animals.push_front(bear);
-  animals.push_front(pig);
-  animals.push_front(rabbit);
-  fruits.push_front(carrot);
+  bears.push_front(bear);
+  pigs.push_front(pig);
+  rabbits.push_front(rabbit);
+  carrots.push_front(carrot);
 
   initial = false;
 }
 
 void App::close() {
-  animals.clear();
-  fruits.clear();
+  bears.clear();
+  pigs.clear();
+  rabbits.clear();
+  carrots.clear();
+  corpses.clear();
   window.clear();
   window.close();
 }
@@ -92,42 +95,46 @@ void App::processEvents() {
   }
 }
 
+template<typename T>
+std::forward_list<T> App::aging(std::forward_list<T> objects) {
+  std::forward_list<T> newObjects;
+  for (T object : objects) {
+    if (object.aging()) {
+      Corpse corpse = Corpse(object.getX(), object.getY(), object.getSize());
+      corpses.push_front(corpse);
+    } else {
+      newObjects.push_front(object);
+    }
+  }
+  return newObjects;
+}
+
 void App::update(sf::Time deltaTime) {
   if (initial) {
     init();
   }
-  for (Animal& animal : animals) {
-    animal.move(deltaTime.asMilliseconds());
-  }
+  std::forward_list<Object> attractors;
+  std::forward_list<Object> repulsers;
+  for (Animal& animal : bears) animal.findDirection(attractors, repulsers);
+  for (Object carrot : carrots) attractors.push_front(carrot);
+  for (Animal& animal : pigs) animal.findDirection(attractors, repulsers);
+  for (Object bear : bears) repulsers.push_front(bear);
+  for (Animal& animal : rabbits) animal.findDirection(attractors, repulsers);
+  for (Animal& animal : bears) animal.move(deltaTime.asMilliseconds());
+  for (Animal& animal : pigs) animal.move(deltaTime.asMilliseconds());
+  for (Animal& animal : rabbits) animal.move(deltaTime.asMilliseconds());
   if (updateTick % 40 == 0) {
     // ? sekunda
   }
   if (updateTick % 200 == 0) {
     // ? rok w symulatorze
-    std::forward_list<Fruit> newFruits;
-    for (Fruit fruit : fruits) {
-      if (fruit.aging()) {
-        Corpse corpse = Corpse(fruit.getX(), fruit.getY(), fruit.getSize());
-        corpses.push_front(corpse);
-      } else {
-        newFruits.push_front(fruit);
-      }
-    }
-    fruits = newFruits;
-
-    std::forward_list<Animal> newAnimals;
-    for (Animal animal : animals) {
-      if (animal.aging()) {
-        Corpse corpse = Corpse(animal.getX(), animal.getY(), animal.getSize());
-        corpses.push_front(corpse);
-      } else {
-        newAnimals.push_front(animal);
-      }
-    }
-    animals = newAnimals;
+    carrots = aging(carrots);
+    bears = aging(bears);
+    pigs = aging(pigs);
+    rabbits = aging(rabbits);
 
     Carrot carrot = Carrot(rand() % mapWIDTH, rand() % mapHEIGHT, 3);
-    fruits.push_front(carrot);
+    carrots.push_front(carrot);
   }
   if (updateTick % 20000 == 0) {
     // ? 100 lat w symulatorze
@@ -143,14 +150,14 @@ void App::render() {
   if (start) {
     map.draw(window, x, y, zoom);
     if (debug) {
-      for (Animal& object : animals) {
-        object.draw_vision(window, x, y, mapWIDTH, mapHEIGHT, zoom);
-      }
+      for (Animal& animal : bears) animal.drawVision(window, x, y, mapWIDTH, mapHEIGHT, zoom);
+      for (Animal& animal : pigs) animal.drawVision(window, x, y, mapWIDTH, mapHEIGHT, zoom);
+      for (Animal& animal : rabbits) animal.drawVision(window, x, y, mapWIDTH, mapHEIGHT, zoom);
     }
-    for (Animal& object : animals) {
-      object.draw(window, x, y, mapWIDTH, mapHEIGHT, zoom);
-    }
-    for (Object& object : fruits) {
+    for (Animal& animal : bears) animal.draw(window, x, y, mapWIDTH, mapHEIGHT, zoom);
+    for (Animal& animal : pigs) animal.draw(window, x, y, mapWIDTH, mapHEIGHT, zoom);
+    for (Animal& animal : rabbits) animal.draw(window, x, y, mapWIDTH, mapHEIGHT, zoom);
+    for (Object& object : carrots) {
       object.draw(window, x, y, mapWIDTH, mapHEIGHT, zoom);
     }
     for (Corpse& corpse : corpses) {
