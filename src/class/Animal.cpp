@@ -13,7 +13,7 @@ Animal::Animal(int x, int y, int s, int v) : Object(x, y, s) {
   this->direction = r;
 }
 
-void Animal::findDirection(std::forward_list<Object> attractos, std::forward_list<Object> repulsers) {
+void Animal::findDirection() {
   int closestDistance = vision;
   for (Object repulser : repulsers) {
     int distance = sqrt(pow(repulser.getX() - x, 2) + pow(repulser.getY() - y, 2));
@@ -23,7 +23,7 @@ void Animal::findDirection(std::forward_list<Object> attractos, std::forward_lis
     }
   }
   if (closestDistance != vision) return;
-  for (Object attractor : attractos) {
+  for (Object attractor : attractors) {
     int distance = sqrt(pow(attractor.getX() - x, 2) + pow(attractor.getY() - y, 2));
     if (distance < closestDistance) {
       closestDistance = distance;
@@ -39,6 +39,16 @@ void Animal::move(float delta) {
   direction = fmod(direction + 360, 360);
   x += 0.5*round(delta*speed*cos((direction*PI)/180));
   y += 0.5*round(delta*speed*sin((direction*PI)/180));
+}
+
+Object* Animal::eat() {
+  for (Object attractor : attractors) {
+    int distance = sqrt(pow(attractor.getX() - x, 2) + pow(attractor.getY() - y, 2));
+    if (distance < size/2) {
+      return &attractor;
+    }
+  }
+  return nullptr;
 }
 
 void Animal::drawVision(sf::RenderWindow& window, int mapX, int mapY, int mapWIDTH, int mapHEIGHT, double zoom) {

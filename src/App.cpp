@@ -113,13 +113,12 @@ void App::update(sf::Time deltaTime) {
   if (initial) {
     init();
   }
-  std::forward_list<Object> attractors;
-  std::forward_list<Object> repulsers;
-  for (Animal& animal : bears) animal.findDirection(attractors, repulsers);
-  for (Object carrot : carrots) attractors.push_front(carrot);
-  for (Animal& animal : pigs) animal.findDirection(attractors, repulsers);
-  for (Object bear : bears) repulsers.push_front(bear);
-  for (Animal& animal : rabbits) animal.findDirection(attractors, repulsers);
+  for (Bear& bear : bears) bear.chooseDetractor();
+  for (Rabbit& rabbit : rabbits) rabbit.chooseDetractor(carrots);
+  for (Pig& pig : pigs) pig.chooseDetractor(carrots);
+  for (Bear& bear : bears) Object* eat = bear.eat();
+  for (Rabbit& rabbit : rabbits) rabbit.eat();
+  for (Pig& pig : pigs) pig.eat();
   for (Animal& animal : bears) animal.move(deltaTime.asMilliseconds());
   for (Animal& animal : pigs) animal.move(deltaTime.asMilliseconds());
   for (Animal& animal : rabbits) animal.move(deltaTime.asMilliseconds());

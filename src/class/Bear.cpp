@@ -9,3 +9,8 @@ Bear::Bear(int x, int y, int s, int v) : Animal(x, y, s, v) {
   shape.setFillColor(sf::Color(100, 80, 30));
 }
 
+void Bear::chooseDetractor() {
+  attractors = std::forward_list<Object>();
+  repulsers = std::forward_list<Object>();
+  findDirection();
+}

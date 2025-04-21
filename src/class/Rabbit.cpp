@@ -8,3 +8,10 @@ Rabbit::Rabbit(int x, int y, int s, int v) : Animal(x, y, s, v) {
   speed = 0.15;
   shape.setFillColor(sf::Color(200, 200, 150));
 }
+
+void Rabbit::chooseDetractor(std::forward_list<Carrot> carrots) {
+  attractors = std::forward_list<Object>();
+  repulsers = std::forward_list<Object>();
+  for (Object carrot : carrots) attractors.push_front(carrot);
+  findDirection();
+}

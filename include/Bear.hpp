@@ -7,7 +7,7 @@
 class Bear : public Animal {
   public:
   Bear(int, int, int, int);
-  protected:
+  void chooseDetractor();
 };
 
 #endif
