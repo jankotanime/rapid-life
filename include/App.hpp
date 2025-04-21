@@ -12,6 +12,7 @@
 #include "Map.hpp"
 #include "Carrot.hpp"
 #include "Rabbit.hpp"
+#include "Corpse.hpp"
 
 class App {
 public:
@@ -23,10 +24,12 @@ public:
   bool start = false;
   bool initial = false;
   bool debug = false;
+  int updateTick = 1;
   int x, y;
   double zoom;
   std::forward_list<Animal> animals;
-  std::forward_list<Object> fruits;
+  std::forward_list<Fruit> fruits;
+  std::forward_list<Corpse> corpses;
   App(sf::ContextSettings, std::string);
   void run();
   

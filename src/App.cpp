@@ -99,6 +99,42 @@ void App::update(sf::Time deltaTime) {
   for (Animal& animal : animals) {
     animal.move(deltaTime.asMilliseconds());
   }
+  if (updateTick % 40 == 0) {
+    // ? sekunda
+  }
+  if (updateTick % 200 == 0) {
+    // ? rok w symulatorze
+    std::forward_list<Fruit> newFruits;
+    for (Fruit fruit : fruits) {
+      if (fruit.aging()) {
+        Corpse corpse = Corpse(fruit.getX(), fruit.getY(), fruit.getSize());
+        corpses.push_front(corpse);
+      } else {
+        newFruits.push_front(fruit);
+      }
+    }
+    fruits = newFruits;
+
+    std::forward_list<Animal> newAnimals;
+    for (Animal animal : animals) {
+      if (animal.aging()) {
+        Corpse corpse = Corpse(animal.getX(), animal.getY(), animal.getSize());
+        corpses.push_front(corpse);
+      } else {
+        newAnimals.push_front(animal);
+      }
+    }
+    animals = newAnimals;
+
+    Carrot carrot = Carrot(rand() % mapWIDTH, rand() % mapHEIGHT, 3);
+    fruits.push_front(carrot);
+  }
+  if (updateTick % 20000 == 0) {
+    // ? 100 lat w symulatorze
+    updateTick = 1;
+  } else {
+    updateTick++;
+  }
 }
 
 void App::render() {
@@ -116,6 +152,9 @@ void App::render() {
     }
     for (Object& object : fruits) {
       object.draw(window, x, y, mapWIDTH, mapHEIGHT, zoom);
+    }
+    for (Corpse& corpse : corpses) {
+      corpse.draw(window, x, y, mapWIDTH, mapHEIGHT, zoom);
     }
   }
 

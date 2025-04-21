@@ -1,9 +1,25 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Object.hpp"
+#include "Corpse.hpp"
 
 Object::Object(int x, int y, int s) : x(x), y(y), size(s) {
   shape.setRadius(s*1.f);
+}
+
+bool Object::aging() {
+  age++;
+  return rand() % (50 - age) == 0;
+}
+
+int Object::getX() {
+  return x;
+}
+int Object::getY() {
+  return y;
+}
+int Object::getSize() {
+  return size;
 }
 
 void Object::draw(sf::RenderWindow& window, int mapX, int mapY, int mapWIDTH, int mapHEIGHT, double zoom) {
