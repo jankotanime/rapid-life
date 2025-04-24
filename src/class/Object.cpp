@@ -2,8 +2,13 @@
 #include <iostream>
 #include "Object.hpp"
 #include "Corpse.hpp"
+#include <chrono>
+#include <ctime>
 
 Object::Object(int x, int y, int s) : x(x), y(y), size(s) {
+  auto now = std::chrono::system_clock::now();
+  std::time_t now_time = std::chrono::system_clock::to_time_t(now);
+  id = std::ctime(&now_time);
   shape.setRadius(s*1.f);
 }
 
@@ -20,6 +25,9 @@ int Object::getY() {
 }
 int Object::getSize() {
   return size;
+}
+std::string Object::getId() {
+  return id;
 }
 
 bool Object::isAlive() {

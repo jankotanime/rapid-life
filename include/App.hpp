@@ -13,6 +13,7 @@
 #include "Carrot.hpp"
 #include "Rabbit.hpp"
 #include "Corpse.hpp"
+#include <memory>
 
 class App {
 public:
@@ -25,6 +26,7 @@ public:
   bool initial = false;
   bool debug = false;
   int updateTick = 1;
+  std::unique_ptr<Object> find = nullptr;
   int x, y;
   double zoom;
   std::forward_list<Bear> bears;

@@ -16,8 +16,10 @@ class Object {
     int getSize();
     bool isAlive();
     void kill();
+    std::string getId();
   
   protected:
+    std::string id;
     int x;
     int y;
     int size;
