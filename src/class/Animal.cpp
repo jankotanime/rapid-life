@@ -15,19 +15,22 @@ Animal::Animal(int x, int y, int s, int v) : Object(x, y, s) {
 
 void Animal::findDirection() {
   int closestDistance = vision;
-  for (Object repulser : repulsers) {
-    int distance = sqrt(pow(repulser.getX() - x, 2) + pow(repulser.getY() - y, 2));
+  for (auto& repulser : repulsers) {
+    int distance = sqrt(pow(repulser->getX() - x, 2) + pow(repulser->getY() - y, 2));
     if (distance < closestDistance) {
       closestDistance = distance;
-      direction = atan2(y - repulser.getY(), x - repulser.getX()) * (180.0 / PI);
+      direction = atan2(y - repulser->getY(), x - repulser->getX()) * (180.0 / PI);
     }
   }
   if (closestDistance != vision) return;
-  for (Object attractor : attractors) {
-    int distance = sqrt(pow(attractor.getX() - x, 2) + pow(attractor.getY() - y, 2));
-    if (distance < closestDistance) {
+  for (auto& attractor : attractors) {
+    int distance = sqrt(pow(attractor->getX() - x, 2) + pow(attractor->getY() - y, 2));
+    if (distance < size/2) {
+      attractor->kill();
+    }
+    else if (distance < closestDistance) {
       closestDistance = distance;
-      direction = atan2(attractor.getY() - y, attractor.getX() - x) * (180.0 / PI);
+      direction = atan2(attractor->getY() - y, attractor->getX() - x) * (180.0 / PI);
     }
   }
   if (closestDistance != vision) return;
@@ -39,16 +42,6 @@ void Animal::move(float delta) {
   direction = fmod(direction + 360, 360);
   x += 0.5*round(delta*speed*cos((direction*PI)/180));
   y += 0.5*round(delta*speed*sin((direction*PI)/180));
-}
-
-Object* Animal::eat() {
-  for (Object attractor : attractors) {
-    int distance = sqrt(pow(attractor.getX() - x, 2) + pow(attractor.getY() - y, 2));
-    if (distance < size/2) {
-      return &attractor;
-    }
-  }
-  return nullptr;
 }
 
 void Animal::drawVision(sf::RenderWindow& window, int mapX, int mapY, int mapWIDTH, int mapHEIGHT, double zoom) {

@@ -22,6 +22,11 @@ int Object::getSize() {
   return size;
 }
 
+void Object::kill() {
+  std::cout << age << std::endl;
+  age = 49;
+}
+
 void Object::draw(sf::RenderWindow& window, int mapX, int mapY, int mapWIDTH, int mapHEIGHT, double zoom) {
   shape.setScale({zoom*1.f, zoom*1.f});
   if (x < -size) {

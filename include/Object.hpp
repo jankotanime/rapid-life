@@ -14,6 +14,7 @@ class Object {
     int getX();
     int getY();
     int getSize();
+    void kill();
   
   protected:
     int x;

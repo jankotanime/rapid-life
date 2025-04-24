@@ -10,7 +10,7 @@ Bear::Bear(int x, int y, int s, int v) : Animal(x, y, s, v) {
 }
 
 void Bear::chooseDetractor() {
-  attractors = std::forward_list<Object>();
-  repulsers = std::forward_list<Object>();
+  attractors = std::forward_list<std::shared_ptr<Object>>();
+      repulsers = std::forward_list<std::shared_ptr<Object>>();
   findDirection();
 }

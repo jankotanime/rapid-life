@@ -98,12 +98,12 @@ void App::processEvents() {
 template<typename T>
 std::forward_list<T> App::aging(std::forward_list<T> objects) {
   std::forward_list<T> newObjects;
-  for (T object : objects) {
+  for (T& object : objects) {
     if (object.aging()) {
       Corpse corpse = Corpse(object.getX(), object.getY(), object.getSize());
       corpses.push_front(corpse);
     } else {
-      newObjects.push_front(object);
+      newObjects.push_front(std::move(object));
     }
   }
   return newObjects;
@@ -116,9 +116,7 @@ void App::update(sf::Time deltaTime) {
   for (Bear& bear : bears) bear.chooseDetractor();
   for (Rabbit& rabbit : rabbits) rabbit.chooseDetractor(carrots);
   for (Pig& pig : pigs) pig.chooseDetractor(carrots);
-  for (Bear& bear : bears) Object* eat = bear.eat();
-  for (Rabbit& rabbit : rabbits) rabbit.eat();
-  for (Pig& pig : pigs) pig.eat();
+
   for (Animal& animal : bears) animal.move(deltaTime.asMilliseconds());
   for (Animal& animal : pigs) animal.move(deltaTime.asMilliseconds());
   for (Animal& animal : rabbits) animal.move(deltaTime.asMilliseconds());
