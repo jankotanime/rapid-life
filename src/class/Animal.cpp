@@ -13,10 +13,10 @@ Animal::Animal(int x, int y, int s, int v) : Object(x, y, s) {
   this->direction = r;
 }
 
-void Animal::findDirection() {
+void Animal::findDirection(int mapWidth, int mapHeight) {
   int closestDistance = vision;
   for (auto& repulser : repulsers) {
-    int distance = sqrt(pow(repulser->getX() - x, 2) + pow(repulser->getY() - y, 2));
+    int distance = sqrt(pow((repulser->getX() - x) % mapWidth, 2) + pow((repulser->getY() - y) % mapHeight, 2));
     if (distance < closestDistance) {
       closestDistance = distance;
       direction = atan2(y - repulser->getY(), x - repulser->getX()) * (180.0 / PI);
@@ -24,7 +24,7 @@ void Animal::findDirection() {
   }
   if (closestDistance != vision) return;
   for (auto& attractor : attractors) {
-    int distance = sqrt(pow(attractor->getX() - x, 2) + pow(attractor->getY() - y, 2));
+    int distance = sqrt(pow((attractor->getX() - x) % mapWidth, 2) + pow((attractor->getY() - y) % mapHeight, 2));
     if (distance < size/2) {
       attractor->kill();
     }

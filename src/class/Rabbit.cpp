@@ -15,5 +15,4 @@ void Rabbit::chooseDetractor(std::forward_list<Carrot>& carrots) {
   for (Carrot& carrot : carrots) {
     attractors.push_front(std::shared_ptr<Object>(&carrot, [](Object*){}));
   }
-  findDirection();
 }

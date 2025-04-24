@@ -7,9 +7,9 @@ Object::Object(int x, int y, int s) : x(x), y(y), size(s) {
   shape.setRadius(s*1.f);
 }
 
-bool Object::aging() {
+void Object::aging() {
   age++;
-  return rand() % (50 - age) == 0;
+  if (rand() % (50 - age) == 0) alive = false;
 }
 
 int Object::getX() {
@@ -22,9 +22,12 @@ int Object::getSize() {
   return size;
 }
 
+bool Object::isAlive() {
+  return alive;
+}
+
 void Object::kill() {
-  std::cout << age << std::endl;
-  age = 49;
+  alive = false;
 }
 
 void Object::draw(sf::RenderWindow& window, int mapX, int mapY, int mapWIDTH, int mapHEIGHT, double zoom) {

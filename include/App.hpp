@@ -41,7 +41,9 @@ public:
   void render();
   void init();
   template<typename T>
-  std::forward_list<T> aging(std::forward_list<T> objects);
+  void aging(std::forward_list<T> objects);
+  template<typename T>
+  std::forward_list<T> checkAlive(std::forward_list<T> objects);
   void close();
   sf::RenderWindow window;
   Map map;

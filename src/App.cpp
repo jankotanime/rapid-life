@@ -96,10 +96,17 @@ void App::processEvents() {
 }
 
 template<typename T>
-std::forward_list<T> App::aging(std::forward_list<T> objects) {
+void App::aging(std::forward_list<T> objects) {
+  for (T& object : objects) {
+    object.aging();
+  }
+}
+
+template<typename T>
+std::forward_list<T> App::checkAlive(std::forward_list<T> objects) {
   std::forward_list<T> newObjects;
   for (T& object : objects) {
-    if (object.aging()) {
+    if (!object.isAlive()) {
       Corpse corpse = Corpse(object.getX(), object.getY(), object.getSize());
       corpses.push_front(corpse);
     } else {
@@ -117,18 +124,28 @@ void App::update(sf::Time deltaTime) {
   for (Rabbit& rabbit : rabbits) rabbit.chooseDetractor(carrots);
   for (Pig& pig : pigs) pig.chooseDetractor(carrots);
 
+  for (Bear& bear : bears) bear.findDirection(mapWIDTH, mapHEIGHT);
+  for (Rabbit& rabbit : rabbits) rabbit.findDirection(mapWIDTH, mapHEIGHT);
+  for (Pig& pig : pigs) pig.findDirection(mapWIDTH, mapHEIGHT);
+
+  carrots = checkAlive(carrots);
+  bears = checkAlive(bears);
+  pigs = checkAlive(pigs);
+  rabbits = checkAlive(rabbits);
+
   for (Animal& animal : bears) animal.move(deltaTime.asMilliseconds());
   for (Animal& animal : pigs) animal.move(deltaTime.asMilliseconds());
   for (Animal& animal : rabbits) animal.move(deltaTime.asMilliseconds());
+
   if (updateTick % 40 == 0) {
     // ? sekunda
   }
   if (updateTick % 200 == 0) {
     // ? rok w symulatorze
-    carrots = aging(carrots);
-    bears = aging(bears);
-    pigs = aging(pigs);
-    rabbits = aging(rabbits);
+    aging(carrots);
+    aging(bears);
+    aging(pigs);
+    aging(rabbits);
 
     Carrot carrot = Carrot(rand() % mapWIDTH, rand() % mapHEIGHT, 3);
     carrots.push_front(carrot);

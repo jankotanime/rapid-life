@@ -10,7 +10,7 @@ class Animal : public Object {
   public:
   Animal(int, int, int, int);
   void drawVision(sf::RenderWindow&, int, int, int, int, double);
-  void findDirection();
+  void findDirection(int, int);
   void move(float);
   protected:
   double direction;
