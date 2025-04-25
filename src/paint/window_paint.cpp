@@ -13,3 +13,25 @@ void menu_paint(sf::RenderWindow& window, int w, int h) {
   field.setPosition(20, 20);
   window.draw(field);
 }
+
+void paintObjectStats(sf::RenderWindow& window, Object* object) {
+  sf::RectangleShape container({(80)*1.f, (120)*1.f});
+  container.setFillColor(sf::Color(60, 60, 60));
+  container.setPosition(0, 0);
+  window.draw(container);
+  sf::Font font;
+  if (!font.loadFromFile("src/SparkyStonesRegular-BW6ld.ttf")) {
+    std::cout << "Error: Problem z czcionką!" << std::endl;
+    return;
+  }
+  sf::Text text;
+  text.setFont(font);
+  text.setString("x: " + std::to_string(object->getX()));
+  text.setCharacterSize(16);
+  text.setFillColor(sf::Color::White);
+  text.setPosition(10, 10);
+  window.draw(text);
+  text.setString("y: " + std::to_string(object->getY()));
+  text.setPosition(10, 30);
+  window.draw(text);
+}

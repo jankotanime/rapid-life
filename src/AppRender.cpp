@@ -3,6 +3,7 @@
 
 void context_paint(sf::RenderWindow&, int, int);
 void menu_paint(sf::RenderWindow&, int, int);
+void paintObjectStats(sf::RenderWindow&, Object*);
 
 void App::render() {
   context_paint(window, App::WIDTH, App::HEIGHT);
@@ -14,9 +15,6 @@ void App::render() {
       for (Animal& animal : pigs) animal.drawVision(window, x, y, mapWIDTH, mapHEIGHT, zoom);
       for (Animal& animal : rabbits) animal.drawVision(window, x, y, mapWIDTH, mapHEIGHT, zoom);
     }
-    if (find != nullptr) {
-      std::cout << find->getId() << std::endl;
-    }
     for (Animal& animal : bears) animal.draw(window, x, y, mapWIDTH, mapHEIGHT, zoom);
     for (Animal& animal : pigs) animal.draw(window, x, y, mapWIDTH, mapHEIGHT, zoom);
     for (Animal& animal : rabbits) animal.draw(window, x, y, mapWIDTH, mapHEIGHT, zoom);
@@ -25,6 +23,10 @@ void App::render() {
     }
     for (Corpse& corpse : corpses) {
       corpse.draw(window, x, y, mapWIDTH, mapHEIGHT, zoom);
+    }
+    if (find != nullptr) {
+      paintObjectStats(window, find);
+      std::cout << find->getX() << std::endl;
     }
   }
 

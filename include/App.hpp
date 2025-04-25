@@ -26,7 +26,7 @@ public:
   bool initial = false;
   bool debug = false;
   int updateTick = 1;
-  std::unique_ptr<Object> find = nullptr;
+  Object* find = nullptr;
   int x, y;
   double zoom;
   std::forward_list<Bear> bears;

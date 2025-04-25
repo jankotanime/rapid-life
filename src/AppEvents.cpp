@@ -19,8 +19,8 @@ void App::processEvents() {
           case sf::Keyboard::Space:
           std::cout<< "space" << std::endl;       
           break;
-          case sf::Keyboard::F: 
-          find = std::make_unique<Pig>(pigs.front()); 
+          case sf::Keyboard::F:
+          find = &pigs.front(); 
           break;
           case sf::Keyboard::Left: x+=5/zoom; break;
           case sf::Keyboard::Right: x-= 5/zoom; break;
