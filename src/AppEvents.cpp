@@ -2,6 +2,22 @@
 #include <iostream>
 #include <math.h>
 
+void App::findingObject() {
+  if (find == nullptr) {
+    find = std::shared_ptr<Object>(&pigs.front(), [](Object*){});
+    return;
+  }
+  bool returnNext = false;
+  for (Object& object : pigs) {
+    if (returnNext) {
+      find = std::shared_ptr<Object>(&object, [](Object*){});
+      return;
+    }
+    returnNext = object.getId() == find->getId();
+  }
+  find = std::shared_ptr<Object>(&pigs.front(), [](Object*){});
+}
+
 void App::processEvents() {
   sf::Event event;
   while (window.pollEvent(event)) {
@@ -20,7 +36,7 @@ void App::processEvents() {
           std::cout<< "space" << std::endl;       
           break;
           case sf::Keyboard::F:
-          find = std::shared_ptr<Object>(&pigs.front(), [](Object*){});
+          findingObject();
           break;
           case sf::Keyboard::Left: x+=5/zoom; break;
           case sf::Keyboard::Right: x-= 5/zoom; break;

@@ -39,6 +39,15 @@ void App::init() {
   rabbits.push_front(rabbit);
   carrots.push_front(carrot);
 
+  pig = Pig(700, 700, 9, 140);
+  pigs.push_front(pig);
+
+  pig = Pig(1000, 100, 10, 140);
+  pigs.push_front(pig);
+
+  pig = Pig(900, 900, 10, 140);
+  pigs.push_front(pig);
+
   initial = false;
 }
 

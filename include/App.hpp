@@ -47,6 +47,7 @@ public:
   template<typename T>
   void checkAlive(std::forward_list<T>& objects);
   void close();
+  void findingObject();
   sf::RenderWindow window;
   Map map;
 };

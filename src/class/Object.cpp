@@ -6,9 +6,11 @@
 #include <ctime>
 
 Object::Object(int x, int y, int s) : x(x), y(y), size(s) {
-  auto now = std::chrono::system_clock::now();
-  std::time_t now_time = std::chrono::system_clock::to_time_t(now);
-  id = std::ctime(&now_time);
+  auto now = std::chrono::high_resolution_clock::now();
+  auto duration = now.time_since_epoch();
+  auto nanos = std::chrono::duration_cast<std::chrono::nanoseconds>(duration).count();
+
+  id = std::to_string(nanos);
   shape.setRadius(s*1.f);
 }
 

@@ -15,7 +15,7 @@ void menu_paint(sf::RenderWindow& window, int w, int h) {
 }
 
 void paintObjectStats(sf::RenderWindow& window, std::shared_ptr<Object> object) {
-  sf::RectangleShape container({(80)*1.f, (120)*1.f});
+  sf::RectangleShape container({(200)*1.f, (120)*1.f});
   container.setFillColor(sf::Color(60, 60, 60));
   container.setPosition(0, 0);
   window.draw(container);
@@ -26,12 +26,19 @@ void paintObjectStats(sf::RenderWindow& window, std::shared_ptr<Object> object) 
   }
   sf::Text text;
   text.setFont(font);
-  text.setString("x: " + std::to_string(object->getX()));
-  text.setCharacterSize(16);
   text.setFillColor(sf::Color::White);
+  text.setCharacterSize(10);
   text.setPosition(10, 10);
+  text.setString("id: " + object->getId());
   window.draw(text);
-  text.setString("y: " + std::to_string(object->getY()));
+  text.setCharacterSize(16);
   text.setPosition(10, 30);
+  text.setString("x: " + std::to_string(object->getX()));
+  window.draw(text);
+  text.setPosition(10, 50);
+  text.setString("y: " + std::to_string(object->getY()));
+  window.draw(text);
+  text.setPosition(10, 70);
+  text.setString("size: " + std::to_string(object->getSize()));
   window.draw(text);
 }
