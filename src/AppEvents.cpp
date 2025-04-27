@@ -20,7 +20,7 @@ void App::processEvents() {
           std::cout<< "space" << std::endl;       
           break;
           case sf::Keyboard::F:
-          find = &pigs.front(); 
+          find = std::shared_ptr<Object>(&pigs.front(), [](Object*){});
           break;
           case sf::Keyboard::Left: x+=5/zoom; break;
           case sf::Keyboard::Right: x-= 5/zoom; break;

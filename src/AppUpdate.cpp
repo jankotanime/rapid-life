@@ -10,17 +10,15 @@ void App::aging(std::forward_list<T> objects) {
 }
 
 template<typename T>
-std::forward_list<T> App::checkAlive(std::forward_list<T> objects) {
-  std::forward_list<T> newObjects;
-  for (T& object : objects) {
+void App::checkAlive(std::forward_list<T>& objects) {
+  objects.remove_if([this](T& object) {
     if (!object.isAlive()) {
-      Corpse corpse = Corpse(object.getX(), object.getY(), object.getSize());
+      Corpse corpse(object.getX(), object.getY(), object.getSize());
       corpses.push_front(corpse);
-    } else {
-      newObjects.push_front(std::move(object));
+      return true;
     }
-  }
-  return newObjects;
+    return false;
+  });
 }
 
 void App::update(sf::Time deltaTime) {
@@ -31,16 +29,16 @@ void App::update(sf::Time deltaTime) {
     for (Bear& bear : bears) bear.chooseDetractor();
     for (Rabbit& rabbit : rabbits) rabbit.chooseDetractor(carrots);
     for (Pig& pig : pigs) pig.chooseDetractor(carrots);
-    
+
     for (Bear& bear : bears) bear.findDirection(mapWIDTH, mapHEIGHT);
     for (Rabbit& rabbit : rabbits) rabbit.findDirection(mapWIDTH, mapHEIGHT);
     for (Pig& pig : pigs) pig.findDirection(mapWIDTH, mapHEIGHT);
     
-    carrots = checkAlive(carrots);
-    bears = checkAlive(bears);
-    pigs = checkAlive(pigs);
-    rabbits = checkAlive(rabbits);
-    
+    checkAlive(carrots);
+    checkAlive(bears);
+    checkAlive(pigs);
+    checkAlive(rabbits);
+
     for (Animal& animal : bears) animal.move(deltaTime.asMilliseconds());
     for (Animal& animal : pigs) animal.move(deltaTime.asMilliseconds());
     for (Animal& animal : rabbits) animal.move(deltaTime.asMilliseconds());

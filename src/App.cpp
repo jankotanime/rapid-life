@@ -13,7 +13,7 @@ void App::run() {
   while (window.isOpen()) {
     elapsed += clock.restart();
     while (elapsed >= deltaTimeLimit) {
-      elapsed -= deltaTimeLimit; 
+      elapsed -= deltaTimeLimit;
       update(deltaTimeLimit);
       processEvents();
     }

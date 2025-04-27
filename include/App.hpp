@@ -26,7 +26,7 @@ public:
   bool initial = false;
   bool debug = false;
   int updateTick = 1;
-  Object* find = nullptr;
+  std::shared_ptr<Object> find = nullptr;
   int x, y;
   double zoom;
   std::forward_list<Bear> bears;
@@ -45,7 +45,7 @@ public:
   template<typename T>
   void aging(std::forward_list<T> objects);
   template<typename T>
-  std::forward_list<T> checkAlive(std::forward_list<T> objects);
+  void checkAlive(std::forward_list<T>& objects);
   void close();
   sf::RenderWindow window;
   Map map;

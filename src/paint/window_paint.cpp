@@ -14,7 +14,7 @@ void menu_paint(sf::RenderWindow& window, int w, int h) {
   window.draw(field);
 }
 
-void paintObjectStats(sf::RenderWindow& window, Object* object) {
+void paintObjectStats(sf::RenderWindow& window, std::shared_ptr<Object> object) {
   sf::RectangleShape container({(80)*1.f, (120)*1.f});
   container.setFillColor(sf::Color(60, 60, 60));
   container.setPosition(0, 0);
