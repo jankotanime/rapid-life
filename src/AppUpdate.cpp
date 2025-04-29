@@ -15,6 +15,7 @@ void App::checkAlive(std::forward_list<T>& objects) {
     if (!object.isAlive()) {
       Corpse corpse(object.getX(), object.getY(), object.getSize());
       corpses.push_front(corpse);
+      if (find != nullptr && find.get()->getId() == object.getId()) { find = nullptr; }
       return true;
     }
     return false;
@@ -43,6 +44,8 @@ void App::update(sf::Time deltaTime) {
     for (Animal& animal : pigs) animal.move(deltaTime.asMilliseconds());
     for (Animal& animal : rabbits) animal.move(deltaTime.asMilliseconds());
     
+    checkFinding();
+
     if (updateTick % 40 == 0) {
       // ? sekunda
     }

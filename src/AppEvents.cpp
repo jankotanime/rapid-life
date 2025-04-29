@@ -21,7 +21,6 @@ void App::findingObject() {
 }
 
 void App::findingList() {
-  find = nullptr;
   if (findList == nullptr) {
     findList = std::make_shared<ObjectListImpl<Pig>>(&pigs);
   } else if (findList->get_raw_ptr() == std::make_shared<ObjectListImpl<Pig>>(&pigs)->get_raw_ptr()) {
@@ -31,8 +30,15 @@ void App::findingList() {
   } else if (findList->get_raw_ptr() == std::make_shared<ObjectListImpl<Bear>>(&bears)->get_raw_ptr()) {
     findList = std::make_shared<ObjectListImpl<Carrot>>(&carrots);
   } else {
-    findList = std::make_shared<ObjectListImpl<Pig>>(&pigs);
+    find = nullptr;
+    findList = nullptr;
+    return;
   }
+  if (findList->begin() != findList->end()) {
+    find = std::shared_ptr<Object>(&findList.get()->front(), [](Object*){});
+    return;
+  }
+  find = nullptr;
 }
 
 void App::processEvents() {
