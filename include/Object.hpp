@@ -17,6 +17,8 @@ class Object {
     bool isAlive();
     void kill();
     std::string getId();
+
+    bool operator==(Object&);
   
   protected:
     std::string id;

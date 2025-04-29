@@ -40,6 +40,10 @@ void Object::kill() {
   alive = false;
 }
 
+bool Object::operator==(Object& o) {
+  return id == o.getId();
+};
+
 void Object::draw(sf::RenderWindow& window, int mapX, int mapY, int mapWIDTH, int mapHEIGHT, double zoom) {
   shape.setScale({zoom*1.f, zoom*1.f});
   if (x < -size) {

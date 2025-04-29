@@ -3,19 +3,36 @@
 #include <math.h>
 
 void App::findingObject() {
+  if (findList == nullptr) {
+    findList = std::make_shared<ObjectListImpl<Pig>>(&pigs);
+  }
   if (find == nullptr) {
-    find = std::shared_ptr<Object>(&pigs.front(), [](Object*){});
-    return;
+    find = std::shared_ptr<Object>(&findList.get()->front(), [](Object*){});
   }
   bool returnNext = false;
-  for (Object& object : pigs) {
+  for (Object& object : *findList) {
     if (returnNext) {
       find = std::shared_ptr<Object>(&object, [](Object*){});
       return;
     }
     returnNext = object.getId() == find->getId();
   }
-  find = std::shared_ptr<Object>(&pigs.front(), [](Object*){});
+  find = std::shared_ptr<Object>(&findList.get()->front(), [](Object*){});
+}
+
+void App::findingList() {
+  find = nullptr;
+  if (findList == nullptr) {
+    findList = std::make_shared<ObjectListImpl<Pig>>(&pigs);
+  } else if (findList->get_raw_ptr() == std::make_shared<ObjectListImpl<Pig>>(&pigs)->get_raw_ptr()) {
+    findList = std::make_shared<ObjectListImpl<Rabbit>>(&rabbits);
+  } else if (findList->get_raw_ptr() == std::make_shared<ObjectListImpl<Rabbit>>(&rabbits)->get_raw_ptr()) {
+    findList = std::make_shared<ObjectListImpl<Bear>>(&bears);
+  } else if (findList->get_raw_ptr() == std::make_shared<ObjectListImpl<Bear>>(&bears)->get_raw_ptr()) {
+    findList = std::make_shared<ObjectListImpl<Carrot>>(&carrots);
+  } else {
+    findList = std::make_shared<ObjectListImpl<Pig>>(&pigs);
+  }
 }
 
 void App::processEvents() {
@@ -37,6 +54,9 @@ void App::processEvents() {
           break;
           case sf::Keyboard::F:
           findingObject();
+          break;
+          case sf::Keyboard::T:
+          findingList();
           break;
           case sf::Keyboard::Left: x+=5/zoom; break;
           case sf::Keyboard::Right: x-= 5/zoom; break;
