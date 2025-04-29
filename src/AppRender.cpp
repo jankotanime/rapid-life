@@ -4,6 +4,7 @@
 void context_paint(sf::RenderWindow&, int, int);
 void menu_paint(sf::RenderWindow&, int, int);
 void paintObjectStats(sf::RenderWindow&, std::shared_ptr<Object>);
+void paintFindObject(sf::RenderWindow&, std::shared_ptr<Object>, int, int, int, int, double);
 
 void App::render() {
   context_paint(window, App::WIDTH, App::HEIGHT);
@@ -26,6 +27,9 @@ void App::render() {
     }
     for (Corpse& corpse : corpses) {
       corpse.draw(window, x, y, mapWIDTH, mapHEIGHT, zoom);
+    }
+    if (find != nullptr) {
+      paintFindObject(window, find, x, y, mapWIDTH, mapHEIGHT, zoom);
     }
   }
 

@@ -14,6 +14,32 @@ void menu_paint(sf::RenderWindow& window, int w, int h) {
   window.draw(field);
 }
 
+void paintFindObject(sf::RenderWindow& window, std::shared_ptr<Object> object, int mapX, int mapY, int mapWIDTH, int mapHEIGHT, double zoom) {
+  sf::CircleShape shape;
+  shape.setFillColor(sf::Color(250, 0, 250));
+  shape.setRadius(object->getSize()*1.f);
+  shape.setScale({zoom*1.f, zoom*1.f});
+  bool secondDraw = (object->getX() < 0 || object->getX() > mapWIDTH - 2 * object->getSize() || object->getY() < 0 || object->getY() > mapHEIGHT - 2 * object->getSize());
+  if (secondDraw) {
+    int secondDrawX = object->getX();
+    int secondDrawY = object->getY();
+    if (object->getX() < 0) {
+      secondDrawX = object->getX() + mapWIDTH;
+    } else if (object->getX() > mapWIDTH - 2 * object->getSize()) {
+      secondDrawX = object->getX() - mapWIDTH;
+    }
+    if (object->getY() < 0) {
+      secondDrawY = object->getY() + mapHEIGHT;
+    } else if (object->getY() > mapHEIGHT - 2 * object->getSize()) {
+      secondDrawY = object->getY() - mapHEIGHT;
+    }
+    shape.setPosition(secondDrawX * zoom + mapX, secondDrawY * zoom + mapY);
+    window.draw(shape);
+  }
+  shape.setPosition(object->getX() * zoom + mapX, object->getY() * zoom + mapY);
+  window.draw(shape);
+}
+
 void paintObjectStats(sf::RenderWindow& window, std::shared_ptr<Object> object) {
   sf::RectangleShape container({(200)*1.f, (120)*1.f});
   container.setFillColor(sf::Color(60, 60, 60));

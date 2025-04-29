@@ -43,8 +43,6 @@ void App::update(sf::Time deltaTime) {
     for (Animal& animal : bears) animal.move(deltaTime.asMilliseconds());
     for (Animal& animal : pigs) animal.move(deltaTime.asMilliseconds());
     for (Animal& animal : rabbits) animal.move(deltaTime.asMilliseconds());
-    
-    checkFinding();
 
     if (updateTick % 40 == 0) {
       // ? sekunda

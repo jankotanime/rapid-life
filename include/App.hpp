@@ -47,7 +47,6 @@ public:
   void aging(std::forward_list<T> objects);
   template<typename T>
   void checkAlive(std::forward_list<T>& objects);
-  void checkFinding();
   void close();
   void findingObject();
   void findingList();
