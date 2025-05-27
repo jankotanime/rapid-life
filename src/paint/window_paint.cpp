@@ -68,3 +68,37 @@ void paintObjectStats(sf::RenderWindow& window, std::shared_ptr<Object> object) 
   text.setString("size: " + std::to_string(object->getSize()));
   window.draw(text);
 }
+
+void paintMouseCords(sf::RenderWindow& window, int w, int h, int mapW, int mapH, int mapX, int mapY, double zoom) {
+
+  sf::Font font;
+  if (!font.loadFromFile("src/SparkyStonesRegular-BW6ld.ttf")) {
+    std::cout << "Error: Problem z czcionką!" << std::endl;
+    return;
+  }
+  sf::Vector2i position = sf::Mouse::getPosition(window);
+  sf::Text text;
+  text.setFont(font);
+  text.setFillColor(sf::Color::White);
+  text.setCharacterSize(12);
+  text.setPosition(w-100, 10);
+
+  if ((position.x-mapX)/zoom < 0) {
+    text.setString("x: " + std::to_string(0));
+  } else if ((position.x-mapX)/zoom > mapW) {
+    text.setString("x: " + std::to_string(2000));
+  } else {
+    text.setString("x: " + std::to_string(static_cast<int>((position.x-mapX)/zoom)));
+  }
+  window.draw(text);
+    
+  text.setPosition(w-50, 10);
+  if ((position.y-mapY)/zoom < 0) {
+    text.setString("y: " + std::to_string(0));
+  } else if ((position.y-mapY)/zoom > mapH) {
+    text.setString("y: " + std::to_string(2000));
+  } else {
+    text.setString("y: " + std::to_string(static_cast<int>((position.y-mapY)/zoom)));
+  }
+  window.draw(text);
+}

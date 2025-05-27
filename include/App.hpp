@@ -25,6 +25,7 @@ public:
   bool start = false;
   bool initial = false;
   bool debug = false;
+  bool vision = false;
   int updateTick = 1;
   std::shared_ptr<Object> find = nullptr;
   std::shared_ptr<ObjectList> findList = nullptr;

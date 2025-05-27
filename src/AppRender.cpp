@@ -5,16 +5,20 @@ void context_paint(sf::RenderWindow&, int, int);
 void menu_paint(sf::RenderWindow&, int, int);
 void paintObjectStats(sf::RenderWindow&, std::shared_ptr<Object>);
 void paintFindObject(sf::RenderWindow&, std::shared_ptr<Object>, int, int, int, int, double);
+void paintMouseCords(sf::RenderWindow&, int, int, int, int, int, int, double);
 
 void App::render() {
   context_paint(window, App::WIDTH, App::HEIGHT);
   if (menu) menu_paint(window, App::WIDTH, App::HEIGHT);
   if (start) {
     map.draw(window, x, y, zoom);
-    if (debug) {
+    if (vision) {
       for (Animal& animal : bears) animal.drawVision(window, x, y, mapWIDTH, mapHEIGHT, zoom);
       for (Animal& animal : pigs) animal.drawVision(window, x, y, mapWIDTH, mapHEIGHT, zoom);
       for (Animal& animal : rabbits) animal.drawVision(window, x, y, mapWIDTH, mapHEIGHT, zoom);
+    }
+    if (debug) {
+      paintMouseCords(window, App::WIDTH, App::HEIGHT, mapWIDTH, mapHEIGHT, x, y, zoom);
     }
     if (find != nullptr) {
       paintObjectStats(window, find);
