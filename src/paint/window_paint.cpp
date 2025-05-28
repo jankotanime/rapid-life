@@ -69,8 +69,7 @@ void paintObjectStats(sf::RenderWindow& window, std::shared_ptr<Object> object) 
   window.draw(text);
 }
 
-void paintMouseCords(sf::RenderWindow& window, int w, int h, int mapW, int mapH, int mapX, int mapY, double zoom) {
-
+void paintMouseCords(sf::RenderWindow& window, int w, int h, int mapW, int mapH, int mapX, int mapY, double zoom, Biome biome) {
   sf::Font font;
   if (!font.loadFromFile("src/SparkyStonesRegular-BW6ld.ttf")) {
     std::cout << "Error: Problem z czcionką!" << std::endl;
@@ -99,6 +98,26 @@ void paintMouseCords(sf::RenderWindow& window, int w, int h, int mapW, int mapH,
     text.setString("y: " + std::to_string(2000));
   } else {
     text.setString("y: " + std::to_string(static_cast<int>((position.y-mapY)/zoom)));
+  }
+  window.draw(text);
+
+  text.setPosition(w-100, 20);
+  switch (biome)
+  {
+  case 0:
+    text.setString("Biome: Plains");
+    break;
+  case 1:
+    text.setString("Biome: Pond");
+    break;
+  case 2:
+    text.setString("Biome: Forest");
+    break;
+  case 3:
+    text.setString("Biome: Savanna");
+    break;
+  default:
+    return;
   }
   window.draw(text);
 }
