@@ -6,6 +6,8 @@
 
 #define DEG2RAD(angle) ((angle) * M_PI / 180.0)
 
+// TODO: Fix protruding shapes
+
 Map::Map(int x, int y) : borderX(x), borderY(y) {
   // Ponds
   int pondsCount = 5 + std::rand() % 6;
@@ -37,10 +39,10 @@ Map::Map(int x, int y) : borderX(x), borderY(y) {
       if (newY < 0) { newY = 0; }
       points_new.push_back({static_cast<float>(newX), static_cast<float>(newY)});
     }
-
+    
     pond.setFillColor(sf::Color(60, 60, 140));
     pond.setPointCount(points_new.size());
-    for (int i = 0; i < points_new.size(); i++) {
+    for (std::size_t i = 0; i < points_new.size(); ++i) {
       pond.setPoint(i, points_new[i]);
     }
     chunks.push_front({pond, Water});
@@ -79,7 +81,7 @@ Map::Map(int x, int y) : borderX(x), borderY(y) {
   
       forest.setFillColor(sf::Color(20, 70, 30));
       forest.setPointCount(points_new.size());
-      for (int i = 0; i < points_new.size(); i++) {
+      for (std::size_t i = 0; i < points_new.size(); ++i) {
         forest.setPoint(i, points_new[i]);
       }
       chunks.push_front({forest, Forest});
@@ -118,7 +120,7 @@ Map::Map(int x, int y) : borderX(x), borderY(y) {
 
     savanna.setFillColor(sf::Color(230, 210, 120));
     savanna.setPointCount(points_new.size());
-    for (int i = 0; i < points_new.size(); i++) {
+    for (std::size_t i = 0; i < points_new.size(); ++i) {
       savanna.setPoint(i, points_new[i]);
     }
     chunks.push_front({savanna, Savanna});

@@ -9,19 +9,17 @@ bool pointInConvex(const sf::ConvexShape& shape, sf::Vector2f point) {
   size_t count = shape.getPointCount();
   if (count < 3) return false;
 
-  const float epsilon = 1e-6f;
+  bool inside = false;
   for (size_t i = 0; i < count; ++i) {
-      sf::Vector2f a = shape.getTransform().transformPoint(shape.getPoint(i));
-      sf::Vector2f b = shape.getTransform().transformPoint(shape.getPoint((i + 1) % count));
-      sf::Vector2f edge = b - a;
-      sf::Vector2f toPoint = point - a;
+    sf::Vector2f a = shape.getTransform().transformPoint(shape.getPoint(i));
+    sf::Vector2f b = shape.getTransform().transformPoint(shape.getPoint((i + 1) % count));
 
-      float crossProduct = edge.x * toPoint.y - edge.y * toPoint.x;
-      if (crossProduct < -epsilon)
-          return false;
+    if ((a.y > point.y) != (b.y > point.y) && 
+    (point.x < (b.x - a.x) *  (point.y - a.y) / (b.y - a.y) + a.x)) {
+      inside = !inside;
+    }
   }
-
-  return true;
+  return inside;
 }
 
 void Map::draw(sf::RenderWindow& window, int mapX, int mapY, double zoom) {
