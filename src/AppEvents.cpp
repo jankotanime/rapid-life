@@ -55,9 +55,6 @@ void App::processEvents() {
       }
       if (start) {
         switch (event.key.code) {
-          case sf::Keyboard::Space:
-          std::cout<< "space" << std::endl;       
-          break;
           case sf::Keyboard::F:
           findingObject();
           break;
@@ -78,6 +75,7 @@ void App::processEvents() {
             x+=round(0.05*WIDTH-x*0.1);
             y+=round(0.05*HEIGHT-y*0.1);
           } break;
+          case sf::Keyboard::Space: pause = !pause; break;
           case sf::Keyboard::Backspace: debug = !debug; break;
           case sf::Keyboard::V: vision = !vision; break;
           default:

@@ -26,7 +26,7 @@ void App::update(sf::Time deltaTime) {
   if (initial) {
     init();
   }
-  if (start) {
+  if (start && !pause) {
     for (Bear& bear : bears) bear.chooseDetractor();
     for (Rabbit& rabbit : rabbits) rabbit.chooseDetractor(carrots);
     for (Pig& pig : pigs) pig.chooseDetractor(carrots);

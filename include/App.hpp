@@ -24,6 +24,7 @@ public:
   bool menu = true;
   bool start = false;
   bool initial = false;
+  bool pause = false;
   bool debug = false;
   bool vision = false;
   int updateTick = 1;
