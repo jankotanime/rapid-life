@@ -4,8 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <forward_list>
 #include <iostream>
-
-enum Biome { Grass, Water, Forest, Savanna };
+#include "./enum/Biome.hpp"
 
 struct Chunk {
   sf::ConvexShape convex;

@@ -76,7 +76,7 @@ void App::processEvents() {
             y+=round(0.05*HEIGHT-y*0.1);
           } break;
           case sf::Keyboard::Space: pause = !pause; break;
-          case sf::Keyboard::Backspace: debug = !debug; break;
+          case sf::Keyboard::Backspace: debug.show(); break;
           case sf::Keyboard::V: vision = !vision; break;
           default:
           break;

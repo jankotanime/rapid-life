@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <forward_list>
 #include <iostream>
+#include <memory>
 #include "Fruit.hpp"
 #include "Animal.hpp"
 #include "Pig.hpp"
@@ -12,8 +13,8 @@
 #include "Carrot.hpp"
 #include "Rabbit.hpp"
 #include "Corpse.hpp"
-#include <memory>
 #include "FindList.hpp"
+#include "Debug.hpp"
 
 class App {
 public:
@@ -25,7 +26,6 @@ public:
   bool start = false;
   bool initial = false;
   bool pause = false;
-  bool debug = false;
   bool vision = false;
   int updateTick = 1;
   std::shared_ptr<Object> find = nullptr;
@@ -54,6 +54,7 @@ public:
   void findingList();
   sf::RenderWindow window;
   Map map;
+  Debug debug = Debug(WIDTH, HEIGHT, mapWIDTH, mapHEIGHT);
 };
 
 #endif

@@ -5,7 +5,6 @@ void context_paint(sf::RenderWindow&, int, int);
 void menu_paint(sf::RenderWindow&, int, int);
 void paintObjectStats(sf::RenderWindow&, std::shared_ptr<Object>);
 void paintFindObject(sf::RenderWindow&, std::shared_ptr<Object>, int, int, int, int, double);
-void paintMouseCords(sf::RenderWindow&, int, int, int, int, int, int, double, Biome);
 
 void App::render() {
   context_paint(window, App::WIDTH, App::HEIGHT);
@@ -17,9 +16,9 @@ void App::render() {
       for (Animal& animal : pigs) animal.drawVision(window, x, y, mapWIDTH, mapHEIGHT, zoom);
       for (Animal& animal : rabbits) animal.drawVision(window, x, y, mapWIDTH, mapHEIGHT, zoom);
     }
-    if (debug) {
+    if (debug.getShown()) {
       Biome biome = map.getCordsChunk(window, 0, 0, x, y, zoom);
-      paintMouseCords(window, App::WIDTH, App::HEIGHT, mapWIDTH, mapHEIGHT, x, y, zoom, biome);
+      debug.paintMouseCords(window, x, y, zoom, biome);
     }
     if (find != nullptr) {
       paintObjectStats(window, find);
