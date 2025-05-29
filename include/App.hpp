@@ -15,6 +15,7 @@
 #include "Corpse.hpp"
 #include "FindList.hpp"
 #include "Debug.hpp"
+#include "Shroom.hpp"
 
 class App {
 public:

@@ -10,11 +10,10 @@ Carrot::Carrot(int x, int y, int s) : Fruit(x, y, s, 300) {
 
 void Carrot::aging() {
   age++;
-  if (rand() % (40 - age) == 0) alive = false;
+  if (rand() % (5 - age) == 0) alive = false;
 }
 
-void Carrot::reproduce(std::forward_list<std::unique_ptr<Fruit>>& fruits, Map map) {
-  std::cout << "aaa" << std::endl;
+void Carrot::reproduce(std::forward_list<std::unique_ptr<Fruit>>& fruits, std::forward_list<Corpse>&, Map map) {
   while (true) {
     int newX = x + (rand() % (2 * range + 1)) - range;
     int newY = y + (rand() % (2 * range + 1)) - range;

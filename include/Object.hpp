@@ -7,6 +7,7 @@
 class Object {
   public:
     Object(int, int, int);
+    ~Object() {};
     void draw(sf::RenderWindow&, int, int, int, int, double);
     sf::CircleShape shape;
     virtual void aging();
