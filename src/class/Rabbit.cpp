@@ -9,4 +9,6 @@ Rabbit::Rabbit(int x, int y, int s, int v) : Animal(x, y, s, v) {
   shape.setFillColor(sf::Color(200, 200, 150));
   species = Rabbits;
   attractorSpecies = {Carrots};
+  repulsersSpecies = {};
+  repulsersBiomes = {Water};
 }

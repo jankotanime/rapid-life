@@ -28,8 +28,7 @@ void App::update(sf::Time deltaTime) {
   }
   if (start && !pause) {
     for (Animal& animal : animals) animal.chooseDetractor(animals, fruits);
-
-    for (Animal& animal : animals) animal.findDirection(mapWIDTH, mapHEIGHT);
+    for (Animal& animal : animals) animal.findDirection(mapWIDTH, mapHEIGHT, map);
     
     checkAlive(animals);
 

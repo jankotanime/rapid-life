@@ -10,4 +10,6 @@ Pig::Pig(int x, int y, int s, int v) : Animal(x, y, s, v) {
   shape.setFillColor(sf::Color(250, 200, 220));
   species = Pigs;
   attractorSpecies = {Carrots};
+  repulsersSpecies = {Bears};
+  repulsersBiomes = {Water};
 }

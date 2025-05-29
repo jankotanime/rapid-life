@@ -15,8 +15,7 @@ void App::render() {
       for (Animal& animal : animals) animal.drawVision(window, x, y, mapWIDTH, mapHEIGHT, zoom);
     }
     if (debug.getShown()) {
-      Biome biome = map.getCordsChunk(window, 0, 0, x, y, zoom);
-      debug.paintMouseCords(window, x, y, zoom, biome);
+      debug.paintMouseCords(window, map, x, y, zoom);
     }
     if (find != nullptr) {
       paintObjectStats(window, find);

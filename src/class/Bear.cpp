@@ -9,4 +9,6 @@ Bear::Bear(int x, int y, int s, int v) : Animal(x, y, s, v) {
   shape.setFillColor(sf::Color(100, 80, 30));
   species = Bears;
   attractorSpecies = {};
+  repulsersSpecies = {};
+  repulsersBiomes = {Water};
 }

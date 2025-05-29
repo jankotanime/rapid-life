@@ -30,10 +30,7 @@ void Map::draw(sf::RenderWindow& window, int mapX, int mapY, double zoom) {
   }
 }
 
-Biome Map::getCordsChunk(sf::RenderWindow& window, int x, int y, int mapX, int mapY, double zoom) {
-  sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-  sf::Vector2f position({static_cast<float>((mousePosition.x-mapX)/zoom), static_cast<float>((mousePosition.y-mapY)/zoom)});
-
+Biome Map::getCordsChunk(sf::Vector2f position) {
   Biome biome = Grass;
   for (Chunk chunk : chunks) {
     if (pointInConvex(chunk.convex, position)) {

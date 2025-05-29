@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Debug.hpp"
+#include "Map.hpp"
 
 Debug::Debug(int w, int h, int mW, int mH) : WIDTH(w), HEIGHT(h), mapWIDTH(mW), mapHEIGHT(mH) {}
 
@@ -12,7 +13,7 @@ bool Debug::getShown() {
   return shown;
 }
 
-void Debug::paintMouseCords(sf::RenderWindow& window, int mapX, int mapY, double zoom, Biome biome) {
+void Debug::paintMouseCords(sf::RenderWindow& window, Map map, int mapX, int mapY, double zoom) {
   sf::Font font;
   if (!font.loadFromFile("src/SparkyStonesRegular-BW6ld.ttf")) {
     std::cout << "Error: Problem z czcionką!" << std::endl;
@@ -43,6 +44,10 @@ void Debug::paintMouseCords(sf::RenderWindow& window, int mapX, int mapY, double
     text.setString("y: " + std::to_string(static_cast<int>((position.y-mapY)/zoom)));
   }
   window.draw(text);
+
+  sf::Vector2f position2f({static_cast<float>((position.x-mapX)/zoom), static_cast<float>((position.y-mapY)/zoom)});
+
+  Biome biome = map.getCordsChunk(position2f);
 
   text.setPosition(WIDTH-100, 20);
   switch (biome)

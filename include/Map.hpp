@@ -16,7 +16,7 @@ class Map {
   Map(int, int);
   Map();
   void draw(sf::RenderWindow&, int, int, double);
-  Biome getCordsChunk(sf::RenderWindow&, int, int, int, int, double);
+  Biome getCordsChunk(sf::Vector2f);
   private:
   std::forward_list<Chunk> chunks;
   int borderX;

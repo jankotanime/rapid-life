@@ -3,11 +3,12 @@
 
 #include "./enum/Biome.hpp"
 #include <SFML/Graphics.hpp>
+#include "Map.hpp"
 
 class Debug {
   public:
   Debug(int, int, int, int);
-  void paintMouseCords(sf::RenderWindow&, int, int, double, Biome);
+  void paintMouseCords(sf::RenderWindow&, Map, int, int, double);
   void show();
   bool getShown();
   private:

@@ -6,8 +6,9 @@
 #include <math.h>
 #define PI 3.141592654
 
-bool includeInForwardList(std::forward_list<Species> list, Species elem) {
-  for (Species& e : list) {
+template<typename T>
+bool includeInForwardList(std::forward_list<T> list, T elem) {
+  for (T& e : list) {
     if (e == elem) {
       return true;
     }
@@ -27,7 +28,7 @@ Species Animal::getSpecies() {
   return species;
 }
 
-void Animal::findDirection(int mapWidth, int mapHeight) {
+void Animal::findDirection(int mapWidth, int mapHeight, Map map) {
   int closestDistance = vision;
   for (auto& repulser : repulsers) {
     int distance = sqrt(pow((repulser->getX() - x) % mapWidth, 2) + pow((repulser->getY() - y) % mapHeight, 2));
@@ -50,6 +51,14 @@ void Animal::findDirection(int mapWidth, int mapHeight) {
   if (closestDistance != vision) return;
   int r = rand() % 21;
   direction += r - 10;
+  direction = fmod(direction + 360, 360);
+  int newX = x + cos(direction * PI / 180) * 5;
+  int newY = y + sin(direction * PI / 180) * 5;
+  Biome targetBiome = map.getCordsChunk({static_cast<float>(newX), static_cast<float>(newY)});
+  if (includeInForwardList(repulsersBiomes, targetBiome)) {
+    direction += 180;
+    direction = fmod(direction + 360, 360);
+  }
 }
 
 void Animal::move(float delta) {
@@ -94,6 +103,16 @@ void Animal::chooseDetractor(std::forward_list<Animal>& animals, std::forward_li
   for (Fruit& fruit : fruits) {
     if (includeInForwardList(attractorSpecies, fruit.getSpecies())) {
       attractors.push_front(std::shared_ptr<Object>(&fruit, [](Object*){}));
+    }
+  }
+  for (Animal& animal : animals) {
+    if (includeInForwardList(repulsersSpecies, animal.getSpecies())) {
+      repulsers.push_front(std::shared_ptr<Object>(&animal, [](Object*){}));
+    }
+  }
+  for (Fruit& fruit : fruits) {
+    if (includeInForwardList(repulsersSpecies, fruit.getSpecies())) {
+      repulsers.push_front(std::shared_ptr<Object>(&fruit, [](Object*){}));
     }
   }
 }
