@@ -33,8 +33,8 @@ public:
   std::shared_ptr<ObjectList> findList = nullptr;
   int x, y;
   double zoom;
-  std::forward_list<Animal> animals;
-  std::forward_list<Fruit> fruits;
+  std::forward_list<std::unique_ptr<Animal>> animals;
+  std::forward_list<std::unique_ptr<Fruit>> fruits;
   std::forward_list<Corpse> corpses;
   App(sf::ContextSettings, std::string);
   void run();
@@ -45,9 +45,9 @@ public:
   void render();
   void init();
   template<typename T>
-  void aging(std::forward_list<T> objects);
+  void aging(std::forward_list<std::unique_ptr<T>>& objects);
   template<typename T>
-  void checkAlive(std::forward_list<T>& objects);
+  void checkAlive(std::forward_list<std::unique_ptr<T>>& objects);
   void close();
   void findingObject();
   void findingList();

@@ -12,10 +12,10 @@ void App::render() {
   if (start) {
     map.draw(window, x, y, zoom);
     if (vision) {
-      for (Animal& animal : animals) animal.drawVision(window, x, y, mapWIDTH, mapHEIGHT, zoom);
+      for (auto& animal : animals) animal->drawVision(window, x, y, mapWIDTH, mapHEIGHT, zoom);
     }
     if (range) {
-      for (Fruit& fruit : fruits) fruit.drawRange(window, x, y, mapWIDTH, mapHEIGHT, zoom);
+      for (auto& fruit : fruits) fruit->drawRange(window, x, y, mapWIDTH, mapHEIGHT, zoom);
     }
     if (debug.getShown()) {
       debug.paintMouseCords(window, map, x, y, zoom);
@@ -23,8 +23,8 @@ void App::render() {
     if (find != nullptr) {
       paintObjectStats(window, find);
     }
-    for (Animal& animal : animals) animal.draw(window, x, y, mapWIDTH, mapHEIGHT, zoom);
-    for (Fruit& fruit : fruits) fruit.draw(window, x, y, mapWIDTH, mapHEIGHT, zoom);
+    for (auto& animal : animals) animal->draw(window, x, y, mapWIDTH, mapHEIGHT, zoom);
+    for (auto& fruit : fruits) fruit->draw(window, x, y, mapWIDTH, mapHEIGHT, zoom);
     for (Corpse& corpse : corpses) corpse.draw(window, x, y, mapWIDTH, mapHEIGHT, zoom);
     if (find != nullptr) {
       paintFindObject(window, find, x, y, mapWIDTH, mapHEIGHT, zoom);

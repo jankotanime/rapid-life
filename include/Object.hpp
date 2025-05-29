@@ -9,8 +9,7 @@ class Object {
     Object(int, int, int);
     void draw(sf::RenderWindow&, int, int, int, int, double);
     sf::CircleShape shape;
-    void aging();
-
+    virtual void aging();
     int getX();
     int getY();
     int getSize();

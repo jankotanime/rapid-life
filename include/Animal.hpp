@@ -14,7 +14,7 @@ class Animal : public Object {
   public:
   Animal(int, int, int, int);
   void drawVision(sf::RenderWindow&, int, int, int, int, double);
-  void chooseDetractor(std::forward_list<Animal>&, std::forward_list<Fruit>&);
+  void chooseDetractor(std::forward_list<std::unique_ptr<Animal>>&, std::forward_list<std::unique_ptr<Fruit>>&);
   void findDirection(int, int, Map);
   void move(float);
   Species getSpecies();

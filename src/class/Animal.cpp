@@ -92,27 +92,27 @@ void Animal::drawVision(sf::RenderWindow& window, int mapX, int mapY, int mapWID
   window.draw(visionShape);
 }
 
-void Animal::chooseDetractor(std::forward_list<Animal>& animals, std::forward_list<Fruit>& fruits) {
+void Animal::chooseDetractor(std::forward_list<std::unique_ptr<Animal>>& animals, std::forward_list<std::unique_ptr<Fruit>>& fruits) {
   attractors = std::forward_list<std::shared_ptr<Object>>();
   repulsers = std::forward_list<std::shared_ptr<Object>>();
-  for (Animal& animal : animals) {
-    if (includeInForwardList(attractorSpecies, animal.getSpecies())) {
-      attractors.push_front(std::shared_ptr<Object>(&animal, [](Object*){}));
+  for (auto& animal : animals) {
+    if (includeInForwardList(attractorSpecies, animal->getSpecies())) {
+      attractors.push_front(std::shared_ptr<Object>(animal.get(), [](Object*) {}));
     }
   }
-  for (Fruit& fruit : fruits) {
-    if (includeInForwardList(attractorSpecies, fruit.getSpecies())) {
-      attractors.push_front(std::shared_ptr<Object>(&fruit, [](Object*){}));
+  for (auto& fruit : fruits) {
+    if (includeInForwardList(attractorSpecies, fruit->getSpecies())) {
+      attractors.push_front(std::shared_ptr<Object>(fruit.get(), [](Object*) {}));
     }
   }
-  for (Animal& animal : animals) {
-    if (includeInForwardList(repulsersSpecies, animal.getSpecies())) {
-      repulsers.push_front(std::shared_ptr<Object>(&animal, [](Object*){}));
+  for (auto& animal : animals) {
+    if (includeInForwardList(repulsersSpecies, animal->getSpecies())) {
+      repulsers.push_front(std::shared_ptr<Object>(animal.get(), [](Object*) {}));
     }
   }
-  for (Fruit& fruit : fruits) {
-    if (includeInForwardList(repulsersSpecies, fruit.getSpecies())) {
-      repulsers.push_front(std::shared_ptr<Object>(&fruit, [](Object*){}));
+  for (auto& fruit : fruits) {
+    if (includeInForwardList(repulsersSpecies, fruit->getSpecies())) {
+      repulsers.push_front(std::shared_ptr<Object>(fruit.get(), [](Object*) {}));
     }
   }
 }

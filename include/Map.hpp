@@ -17,6 +17,9 @@ class Map {
   Map();
   void draw(sf::RenderWindow&, int, int, double);
   Biome getCordsChunk(sf::Vector2f);
+  int getBorderX();
+  int getBorderY();
+  bool isPointInBiomes(std::forward_list<Biome>, sf::Vector2f);
   private:
   std::forward_list<Chunk> chunks;
   int borderX;

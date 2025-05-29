@@ -5,6 +5,14 @@
 
 Map::Map() {}
 
+int Map::getBorderX() {
+  return borderX;
+}
+
+int Map::getBorderY() {
+  return borderY;
+}
+
 bool pointInConvex(const sf::ConvexShape& shape, sf::Vector2f point) {
   size_t count = shape.getPointCount();
   if (count < 3) return false;
@@ -38,4 +46,17 @@ Biome Map::getCordsChunk(sf::Vector2f position) {
     }
   }
   return biome;
+}
+
+bool Map::isPointInBiomes(std::forward_list<Biome> biomes, sf::Vector2f position) {
+  for (Chunk chunk : chunks) {
+    if (pointInConvex(chunk.convex, position)) {
+      for (Biome biome : biomes) {
+        if (biome == chunk.biome) {
+          return true;
+        }
+      }
+    }
+  }
+  return false;
 }

@@ -3,19 +3,17 @@
 #include <math.h>
 
 template<typename T>
-void App::aging(std::forward_list<T> objects) {
-  for (T& object : objects) {
-    object.aging();
+void App::aging(std::forward_list<std::unique_ptr<T>>& objects) {
+  for (auto& object : objects) {
+    object->aging();
   }
 }
 
 template<typename T>
-void App::checkAlive(std::forward_list<T>& objects) {
-  objects.remove_if([this](T& object) {
-    if (!object.isAlive()) {
-      Corpse corpse(object.getX(), object.getY(), object.getSize());
-      corpses.push_front(corpse);
-      if (find != nullptr && find.get()->getId() == object.getId()) { find = nullptr; }
+void App::checkAlive(std::forward_list<std::unique_ptr<T>>& objects) {
+  objects.remove_if([this](std::unique_ptr<T>& object) {
+    if (!object->isAlive()) {
+      corpses.push_front(Corpse(object->getX(), object->getY(), object->getSize()));
       return true;
     }
     return false;
@@ -27,13 +25,13 @@ void App::update(sf::Time deltaTime) {
     init();
   }
   if (start && !pause) {
-    for (Animal& animal : animals) animal.chooseDetractor(animals, fruits);
-    for (Animal& animal : animals) animal.findDirection(mapWIDTH, mapHEIGHT, map);
+    for (auto& animal : animals) animal->chooseDetractor(animals, fruits);
+    for (auto& animal : animals) animal->findDirection(mapWIDTH, mapHEIGHT, map);
     
     checkAlive(animals);
     checkAlive(fruits);
 
-    for (Animal& animal : animals) animal.move(deltaTime.asMilliseconds());
+    for (auto& animal : animals) animal->move(deltaTime.asMilliseconds());
 
     if (updateTick % 40 == 0) {
       // ? sekunda
@@ -41,6 +39,8 @@ void App::update(sf::Time deltaTime) {
     if (updateTick % 200 == 0) {
       // ? rok w symulatorze
       aging(animals);
+      aging(fruits);
+      for (auto& fruit : fruits) fruit->reproduce(fruits, map);
     }
     if (updateTick % 20000 == 0) {
       // ? 100 lat w symulatorze
@@ -50,4 +50,3 @@ void App::update(sf::Time deltaTime) {
     }
   }
 }
-  

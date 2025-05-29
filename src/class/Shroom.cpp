@@ -6,3 +6,5 @@ Shroom::Shroom(int x, int y, int s) : Fruit(x, y, s, 500) {
   shape.setFillColor(sf::Color(200, 150, 50));
   species = Shrooms;
 }
+
+void Shroom::reproduce(std::forward_list<std::unique_ptr<Fruit>>& fruits, Map map) {}
