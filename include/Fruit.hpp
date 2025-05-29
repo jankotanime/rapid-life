@@ -7,10 +7,13 @@
 
 class Fruit : public Object {
   public:
-    Fruit(int, int, int);
+    Fruit(int, int, int, int);
     Species getSpecies();
+    void drawRange(sf::RenderWindow&, int, int, int, int, double);
   protected:
+    sf::CircleShape rangeShape;
     Species species;
+    int range;
 };
 
 #endif

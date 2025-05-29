@@ -54,12 +54,8 @@ void App::processEvents() {
       }
       if (start) {
         switch (event.key.code) {
-          case sf::Keyboard::F:
-          findingObject();
-          break;
-          case sf::Keyboard::T:
-          findingList();
-          break;
+          case sf::Keyboard::F: findingObject(); break;
+          case sf::Keyboard::T: findingList(); break;
           case sf::Keyboard::Left: x+=5/zoom; break;
           case sf::Keyboard::Right: x-= 5/zoom; break;
           case sf::Keyboard::Up: y+=5/zoom; break;
@@ -77,6 +73,7 @@ void App::processEvents() {
           case sf::Keyboard::Space: pause = !pause; break;
           case sf::Keyboard::Backspace: debug.show(); break;
           case sf::Keyboard::V: vision = !vision; break;
+          case sf::Keyboard::R: range = !range; break;
           default:
           break;
         }

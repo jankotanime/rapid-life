@@ -27,6 +27,7 @@ public:
   bool initial = false;
   bool pause = false;
   bool vision = false;
+  bool range = false;
   int updateTick = 1;
   std::shared_ptr<Object> find = nullptr;
   std::shared_ptr<ObjectList> findList = nullptr;

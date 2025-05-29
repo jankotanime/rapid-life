@@ -14,6 +14,9 @@ void App::render() {
     if (vision) {
       for (Animal& animal : animals) animal.drawVision(window, x, y, mapWIDTH, mapHEIGHT, zoom);
     }
+    if (range) {
+      for (Fruit& fruit : fruits) fruit.drawRange(window, x, y, mapWIDTH, mapHEIGHT, zoom);
+    }
     if (debug.getShown()) {
       debug.paintMouseCords(window, map, x, y, zoom);
     }

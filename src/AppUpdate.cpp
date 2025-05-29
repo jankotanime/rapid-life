@@ -31,6 +31,7 @@ void App::update(sf::Time deltaTime) {
     for (Animal& animal : animals) animal.findDirection(mapWIDTH, mapHEIGHT, map);
     
     checkAlive(animals);
+    checkAlive(fruits);
 
     for (Animal& animal : animals) animal.move(deltaTime.asMilliseconds());
 
@@ -40,9 +41,6 @@ void App::update(sf::Time deltaTime) {
     if (updateTick % 200 == 0) {
       // ? rok w symulatorze
       aging(animals);
-      
-      Carrot carrot = Carrot(rand() % mapWIDTH, rand() % mapHEIGHT, 3);
-      fruits.push_front(carrot);
     }
     if (updateTick % 20000 == 0) {
       // ? 100 lat w symulatorze
