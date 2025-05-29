@@ -4,3 +4,7 @@
 
 Fruit::Fruit(int x, int y, int s) : Object(x, y, s) {
 }
+
+Species Fruit::getSpecies() {
+  return species;
+}

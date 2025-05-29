@@ -1,9 +1,13 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Animal.hpp"
+#include "Fruit.hpp"
 #include <cstdlib>
 #include <math.h>
 #define PI 3.141592654
+
+template <typename T>
+bool includeInForwardList(std::forward_list<T>, T);
 
 Animal::Animal(int x, int y, int s, int v) : Object(x, y, s) {
   vision = v;
@@ -11,6 +15,10 @@ Animal::Animal(int x, int y, int s, int v) : Object(x, y, s) {
   visionShape.setFillColor(sf::Color(100, 100, 100, 50));
   int r = rand() % 360;
   this->direction = r;
+}
+
+Species Animal::getSpecies() {
+  return species;
 }
 
 void Animal::findDirection(int mapWidth, int mapHeight) {
@@ -67,4 +75,19 @@ void Animal::drawVision(sf::RenderWindow& window, int mapX, int mapY, int mapWID
   }
   visionShape.setPosition(actX*zoom+mapX, actY*zoom+mapY);
   window.draw(visionShape);
+}
+
+void Animal::chooseDetractor(std::forward_list<Animal>& animals, std::forward_list<Fruit>& fruits) {
+  attractors = std::forward_list<std::shared_ptr<Object>>();
+  repulsers = std::forward_list<std::shared_ptr<Object>>();
+  for (Animal& animal : animals) {
+    if (includeInForwardList(attractorSpecies, animal.getSpecies())) {
+      attractors.push_front(std::shared_ptr<Object>(&animal, [](Object*){}));
+    }
+  }
+  for (Fruit& fruit : fruits) {
+    if (includeInForwardList(attractorSpecies, fruit.getSpecies())) {
+      attractors.push_front(std::shared_ptr<Object>(&fruit, [](Object*){}));
+    }
+  }
 }

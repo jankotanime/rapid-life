@@ -8,7 +8,6 @@
 class Pig : public Animal {
   public:
   Pig(int, int, int, int);
-  void chooseDetractor(std::forward_list<Carrot>&);
 };
 
 #endif
