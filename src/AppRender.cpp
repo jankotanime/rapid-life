@@ -12,9 +12,7 @@ void App::render() {
   if (start) {
     map.draw(window, x, y, zoom);
     if (vision) {
-      for (Animal& animal : bears) animal.drawVision(window, x, y, mapWIDTH, mapHEIGHT, zoom);
-      for (Animal& animal : pigs) animal.drawVision(window, x, y, mapWIDTH, mapHEIGHT, zoom);
-      for (Animal& animal : rabbits) animal.drawVision(window, x, y, mapWIDTH, mapHEIGHT, zoom);
+      for (Animal& animal : animals) animal.drawVision(window, x, y, mapWIDTH, mapHEIGHT, zoom);
     }
     if (debug.getShown()) {
       Biome biome = map.getCordsChunk(window, 0, 0, x, y, zoom);
@@ -23,15 +21,9 @@ void App::render() {
     if (find != nullptr) {
       paintObjectStats(window, find);
     }
-    for (Animal& animal : bears) animal.draw(window, x, y, mapWIDTH, mapHEIGHT, zoom);
-    for (Animal& animal : pigs) animal.draw(window, x, y, mapWIDTH, mapHEIGHT, zoom);
-    for (Animal& animal : rabbits) animal.draw(window, x, y, mapWIDTH, mapHEIGHT, zoom);
-    for (Object& object : carrots) {
-      object.draw(window, x, y, mapWIDTH, mapHEIGHT, zoom);
-    }
-    for (Corpse& corpse : corpses) {
-      corpse.draw(window, x, y, mapWIDTH, mapHEIGHT, zoom);
-    }
+    for (Animal& animal : animals) animal.draw(window, x, y, mapWIDTH, mapHEIGHT, zoom);
+    for (Fruit& fruit : fruits) fruit.draw(window, x, y, mapWIDTH, mapHEIGHT, zoom);
+    for (Corpse& corpse : corpses) corpse.draw(window, x, y, mapWIDTH, mapHEIGHT, zoom);
     if (find != nullptr) {
       paintFindObject(window, find, x, y, mapWIDTH, mapHEIGHT, zoom);
     }

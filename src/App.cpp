@@ -34,28 +34,26 @@ void App::init() {
   y = 0;
   zoom = 1;
 
-  bears.push_front(bear);
-  pigs.push_front(pig);
-  rabbits.push_front(rabbit);
-  carrots.push_front(carrot);
+  animals.push_front(bear);
+  animals.push_front(pig);
+  animals.push_front(rabbit);
+  fruits.push_front(carrot);
 
   pig = Pig(700, 700, 9, 140);
-  pigs.push_front(pig);
+  animals.push_front(pig);
 
   pig = Pig(1000, 100, 10, 140);
-  pigs.push_front(pig);
+  animals.push_front(pig);
 
   pig = Pig(900, 900, 10, 140);
-  pigs.push_front(pig);
+  animals.push_front(pig);
 
   initial = false;
 }
 
 void App::close() {
-  bears.clear();
-  pigs.clear();
-  rabbits.clear();
-  carrots.clear();
+  animals.clear();
+  fruits.clear();
   corpses.clear();
   window.clear();
   window.close();

@@ -32,10 +32,8 @@ public:
   std::shared_ptr<ObjectList> findList = nullptr;
   int x, y;
   double zoom;
-  std::forward_list<Bear> bears;
-  std::forward_list<Rabbit> rabbits;
-  std::forward_list<Pig> pigs;
-  std::forward_list<Carrot> carrots;
+  std::forward_list<Animal> animals;
+  std::forward_list<Fruit> fruits;
   std::forward_list<Corpse> corpses;
   App(sf::ContextSettings, std::string);
   void run();

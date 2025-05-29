@@ -6,8 +6,14 @@
 #include <math.h>
 #define PI 3.141592654
 
-template <typename T>
-bool includeInForwardList(std::forward_list<T>, T);
+bool includeInForwardList(std::forward_list<Species> list, Species elem) {
+  for (Species& e : list) {
+    if (e == elem) {
+      return true;
+    }
+  }
+  return false;
+}
 
 Animal::Animal(int x, int y, int s, int v) : Object(x, y, s) {
   vision = v;

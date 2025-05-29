@@ -23,6 +23,7 @@ struct ObjectList {
   virtual void* get_raw_ptr() = 0;
   virtual struct Iterator begin() = 0;
   virtual struct Iterator end() = 0;
+  virtual size_t getSize() = 0;
 };
 
 template<typename T>
@@ -54,5 +55,9 @@ struct ObjectListImpl : ObjectList {
       [](void* p) { ++(*static_cast<It*>(p)); },
       [](void* a, void* b) -> bool { return *static_cast<It*>(a) == *static_cast<It*>(b); }
     };
+  }
+
+  size_t getSize() override {
+    return std::distance(list->begin(), list->end());
   }
 };

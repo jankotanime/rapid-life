@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "Object.hpp"
+#include "Fruit.hpp"
 #include <forward_list>
 #include <memory>
 #include "./enum/Species.hpp"
