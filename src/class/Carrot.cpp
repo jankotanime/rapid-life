@@ -10,7 +10,7 @@ Carrot::Carrot(int x, int y, int s) : Fruit(x, y, s, 300) {
 
 void Carrot::aging() {
   age++;
-  if (rand() % (5 - age) == 0) alive = false;
+  if (rand() % (7 - age) == 0) alive = false;
 }
 
 void Carrot::reproduce(std::forward_list<std::unique_ptr<Fruit>>& fruits, std::forward_list<Corpse>&, Map map) {
