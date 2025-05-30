@@ -4,7 +4,8 @@
 
 void App::findingObject() {
   if (findList == nullptr) {
-    findList = std::make_shared<ObjectListImpl<Animal>>(&animals);
+    findingList();
+    if (findList == nullptr) return;
   }
   if (find == nullptr) {
     find = std::shared_ptr<Object>(&findList.get()->front(), [](Object*){});
@@ -21,11 +22,14 @@ void App::findingObject() {
 }
 
 void App::findingList() {
-  if (findList == nullptr) {
+  if (!animals.empty() && findList == nullptr) {
     findList = std::make_shared<ObjectListImpl<Animal>>(&animals);
-  } else if (!fruits.empty() && findList->get_raw_ptr() == std::make_shared<ObjectListImpl<Animal>>(&animals)->get_raw_ptr()) {
+  } else if (!fruits.empty() && ((animals.empty() && findList == nullptr) ||
+    findList->get_raw_ptr() == std::make_shared<ObjectListImpl<Animal>>(&animals)->get_raw_ptr())) {
     findList = std::make_shared<ObjectListImpl<Fruit>>(&fruits);
-  } else if (!corpses.empty() && findList->get_raw_ptr() == std::make_shared<ObjectListImpl<Fruit>>(&fruits)->get_raw_ptr()) {
+  } else if (!corpses.empty() && ((fruits.empty() 
+    && findList->get_raw_ptr() == std::make_shared<ObjectListImpl<Animal>>(&animals)->get_raw_ptr())
+    || findList->get_raw_ptr() == std::make_shared<ObjectListImpl<Fruit>>(&fruits)->get_raw_ptr())) {
     findList = std::make_shared<ObjectListImpl<Corpse>>(&corpses);
   } else {
     find = nullptr;

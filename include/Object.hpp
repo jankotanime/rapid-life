@@ -8,7 +8,7 @@
 class Object {
   public:
     Object(int, int, int, std::forward_list<std::string>);
-    ~Object() {};
+    virtual ~Object() {};
     void draw(sf::RenderWindow&, int, int, int, int, double);
     sf::CircleShape shape;
     Species getSpecies();
@@ -16,6 +16,7 @@ class Object {
     int getX();
     int getY();
     int getSize();
+    int getAge();
     bool isAlive();
     void kill();
     std::string getId();

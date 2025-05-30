@@ -8,6 +8,7 @@
 class Pig : public Animal {
   public:
   Pig(int, int, int, int, std::forward_list<std::string>);
+  ~Pig() {}
   void breed(std::forward_list<std::unique_ptr<Animal>>&) override;
 
 };

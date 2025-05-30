@@ -12,7 +12,7 @@
 class Animal : public Object {
   public:
   Animal(int, int, int, int, std::forward_list<std::string>);
-  ~Animal() {};
+  virtual ~Animal() {};
   void drawVision(sf::RenderWindow&, int, int, int, int, double);
   void chooseDetractor(std::forward_list<std::unique_ptr<Animal>>&, std::forward_list<std::unique_ptr<Fruit>>&);
   void findDirection(int, int, Map);

@@ -10,7 +10,7 @@
 class Fruit : public Object {
   public:
     Fruit(int, int, int, int, std::forward_list<std::string>);
-    ~Fruit() {};
+    virtual ~Fruit() {};
     void drawRange(sf::RenderWindow&, int, int, int, int, double);
     virtual void reproduce(std::forward_list<std::unique_ptr<Fruit>>&, std::forward_list<Corpse>&, Map) = 0;
   protected:

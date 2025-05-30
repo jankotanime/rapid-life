@@ -41,7 +41,7 @@ void paintFindObject(sf::RenderWindow& window, std::shared_ptr<Object> object, i
 }
 
 void paintObjectStats(sf::RenderWindow& window, std::shared_ptr<Object> object) {
-  sf::RectangleShape container({(200)*1.f, (120)*1.f});
+  sf::RectangleShape container({(200)*1.f, (600)*1.f});
   container.setFillColor(sf::Color(60, 60, 60));
   container.setPosition(0, 0);
   window.draw(container);
@@ -67,14 +67,17 @@ void paintObjectStats(sf::RenderWindow& window, std::shared_ptr<Object> object) 
   text.setPosition(10, 70);
   text.setString("size: " + std::to_string(object->getSize()));
   window.draw(text);
+  text.setPosition(10, 90);
+  text.setString("age: " + std::to_string(object->getAge()));
+  window.draw(text);
 
-  text.setPosition(10, 100);
+  text.setPosition(10, 120);
   text.setString("Bloodline: ");
   window.draw(text);
 
-  int i = 1;
+  int i = 0;
   for (std::string blood : object->getBloodline()) {
-    text.setPosition(10, 100 + 20*i);
+    text.setPosition(10, 140 + 20*i);
     text.setString(blood);
     window.draw(text);
     i++;

@@ -36,6 +36,9 @@ int Object::getY() {
 int Object::getSize() {
   return size;
 }
+int Object::getAge() {
+  return age;
+}
 std::string Object::getId() {
   return id;
 }

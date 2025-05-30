@@ -14,7 +14,8 @@ void App::checkAlive(std::forward_list<std::unique_ptr<T>>& objects) {
   objects.remove_if([this](std::unique_ptr<T>& object) {
     if (!object->isAlive()) {
       if (find.get() == object.get()) find = nullptr;
-      corpses.push_front(Corpse(object->getX(), object->getY(), object->getSize(), object->getBloodline()));
+      if (object->getSpecies() != Shrooms) corpses.push_front(Corpse(
+        object->getX(), object->getY(), object->getSize(), object->getBloodline()));
       return true;
     }
     return false;
