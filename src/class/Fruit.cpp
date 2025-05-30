@@ -2,7 +2,7 @@
 #include <iostream>
 #include "Fruit.hpp"
 
-Fruit::Fruit(int x, int y, int s, int r) : Object(x, y, s), range(r) {
+Fruit::Fruit(int x, int y, int s, int r, std::forward_list<std::string> b) : Object(x, y, s, b), range(r) {
   rangeShape.setRadius(range*1.f);
   rangeShape.setFillColor(sf::Color(100, 100, 100, 50));
 }

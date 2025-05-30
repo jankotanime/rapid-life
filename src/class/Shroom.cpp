@@ -2,7 +2,7 @@
 #include <iostream>
 #include "Shroom.hpp"
 
-Shroom::Shroom(int x, int y, int s) : Fruit(x, y, s, 500) {
+Shroom::Shroom(int x, int y, int s, std::forward_list<std::string> b) : Fruit(x, y, s, 500, b) {
   shape.setFillColor(sf::Color(0, 0, 0));
   species = Shrooms;
 }
@@ -20,7 +20,9 @@ std::forward_list<Corpse>& corpses, Map map) {
     double distance = dx * dx + dy * dy;
     if (distance < (range * range)) {
       corpse.kill();
-      fruits.push_front(std::make_unique<Shroom>(corpse.getX(), corpse.getY(), corpse.getSize()));
+      std::forward_list<std::string> newBloodline = bloodline;
+      newBloodline.push_front(id);
+      fruits.push_front(std::make_unique<Shroom>(corpse.getX(), corpse.getY(), corpse.getSize(), newBloodline));
       return;
     }
   }

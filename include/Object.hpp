@@ -7,7 +7,7 @@
 
 class Object {
   public:
-    Object(int, int, int);
+    Object(int, int, int, std::forward_list<std::string>);
     ~Object() {};
     void draw(sf::RenderWindow&, int, int, int, int, double);
     sf::CircleShape shape;
@@ -21,6 +21,7 @@ class Object {
     std::string getId();
 
     bool operator==(Object&);
+    std::forward_list<std::string> getBloodline();
   
   protected:
     Species species;
@@ -30,6 +31,7 @@ class Object {
     int size;
     int age = 0;
     bool alive = true;
+    std::forward_list<std::string> bloodline;
 };
 
 #endif

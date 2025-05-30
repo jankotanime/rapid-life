@@ -5,7 +5,7 @@
 #include <chrono>
 #include <ctime>
 
-Object::Object(int x, int y, int s) : x(x), y(y), size(s) {
+Object::Object(int x, int y, int s, std::forward_list<std::string> b) : x(x), y(y), size(s), bloodline(b) {
   auto now = std::chrono::high_resolution_clock::now();
   auto duration = now.time_since_epoch();
   auto nanos = std::chrono::duration_cast<std::chrono::nanoseconds>(duration).count();
@@ -16,6 +16,10 @@ Object::Object(int x, int y, int s) : x(x), y(y), size(s) {
 
 Species Object::getSpecies() {
   return species;
+}
+
+std::forward_list<std::string> Object::getBloodline() {
+  return bloodline;
 }
 
 void Object::aging() {

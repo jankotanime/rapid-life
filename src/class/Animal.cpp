@@ -20,7 +20,7 @@ bool Animal::breedable() {
   return wantToBreed;
 }
 
-Animal::Animal(int x, int y, int s, int v) : Object(x, y, s) {
+Animal::Animal(int x, int y, int s, int v, std::forward_list<std::string> b) : Object(x, y, s, b) {
   vision = v;
   visionShape.setRadius(vision*1.f);
   visionShape.setFillColor(sf::Color(100, 100, 100, 50));

@@ -67,4 +67,16 @@ void paintObjectStats(sf::RenderWindow& window, std::shared_ptr<Object> object) 
   text.setPosition(10, 70);
   text.setString("size: " + std::to_string(object->getSize()));
   window.draw(text);
+
+  text.setPosition(10, 100);
+  text.setString("Bloodline: ");
+  window.draw(text);
+
+  int i = 1;
+  for (std::string blood : object->getBloodline()) {
+    text.setPosition(10, 100 + 20*i);
+    text.setString(blood);
+    window.draw(text);
+    i++;
+  }
 }

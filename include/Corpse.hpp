@@ -6,7 +6,8 @@
 
 class Corpse : public Object {
   public:
-    Corpse(int, int, int);
+    Corpse(int, int, int, std::forward_list<std::string>);
+    void aging() override;
 };
 
 #endif
