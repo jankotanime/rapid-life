@@ -14,9 +14,10 @@ void Shroom::aging() {
 
 void Shroom::reproduce(std::forward_list<std::unique_ptr<Fruit>>& fruits, 
 std::forward_list<Corpse>& corpses, Map map) {
-  for (Corpse corpse : corpses) {
+  for (Corpse& corpse : corpses) {
     if (x + (rand() % (2 * range + 1)) - range <= corpse.getX() 
     && y + (rand() % (2 * range + 1)) - range <= corpse.getY()) {
+      corpse.kill();
       fruits.push_front(std::make_unique<Shroom>(corpse.getX(), corpse.getY(), corpse.getSize()));
       return;
     }

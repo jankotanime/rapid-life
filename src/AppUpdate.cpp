@@ -21,6 +21,16 @@ void App::checkAlive(std::forward_list<std::unique_ptr<T>>& objects) {
   });
 }
 
+void App::checkCorpseOccur(std::forward_list<Corpse>& corpses) {
+  corpses.remove_if([this](Corpse& corpse) {
+    if (!corpse.isAlive()) {
+      if (find && find.get() == &corpse) find = nullptr;
+      return true;
+    }
+    return false;
+  });
+}
+
 void App::update(sf::Time deltaTime) {
   if (initial) {
     init();
@@ -31,6 +41,7 @@ void App::update(sf::Time deltaTime) {
     
     checkAlive(animals);
     checkAlive(fruits);
+    checkCorpseOccur(corpses);
 
     for (auto& animal : animals) animal->move(deltaTime.asMilliseconds());
 

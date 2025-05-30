@@ -27,7 +27,6 @@ struct ObjectList {
   virtual struct Iterator end() = 0;
 };
 
-// Dla Animal i Fruit (listy wskaźników)
 template<typename T>
 struct ObjectListImpl : ObjectList {
   std::forward_list<std::unique_ptr<T>>* list;
@@ -59,7 +58,6 @@ struct ObjectListImpl : ObjectList {
   }
 };
 
-// Specjalizacja dla Corpse (lista obiektów)
 template<>
 struct ObjectListImpl<Corpse> : ObjectList {
   std::forward_list<Corpse>* list;

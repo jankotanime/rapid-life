@@ -49,6 +49,7 @@ public:
   void aging(std::forward_list<std::unique_ptr<T>>& objects);
   template<typename T>
   void checkAlive(std::forward_list<std::unique_ptr<T>>& objects);
+  void checkCorpseOccur(std::forward_list<Corpse>&);
   void close();
   void findingObject();
   void findingList();
