@@ -14,6 +14,10 @@ Object::Object(int x, int y, int s) : x(x), y(y), size(s) {
   shape.setRadius(s*1.f);
 }
 
+Species Object::getSpecies() {
+  return species;
+}
+
 void Object::aging() {
   age++;
   if (rand() % (50 - age) == 0) alive = false;

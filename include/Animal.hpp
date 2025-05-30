@@ -6,20 +6,23 @@
 #include "Fruit.hpp"
 #include <forward_list>
 #include <memory>
-#include "./enum/Species.hpp"
 #include "./enum/Biome.hpp"
 #include "Map.hpp"
 
 class Animal : public Object {
   public:
   Animal(int, int, int, int);
+  ~Animal() {};
   void drawVision(sf::RenderWindow&, int, int, int, int, double);
   void chooseDetractor(std::forward_list<std::unique_ptr<Animal>>&, std::forward_list<std::unique_ptr<Fruit>>&);
   void findDirection(int, int, Map);
   void move(float);
-  Species getSpecies();
+  void aging() override;
+  void breeded();
+  bool breedable();
+  virtual void breed(std::forward_list<std::unique_ptr<Animal>>&) = 0;
+
   protected:
-  Species species;
   double direction;
   double speed;
   std::forward_list<std::shared_ptr<Object>> attractors;
@@ -30,6 +33,7 @@ class Animal : public Object {
   sf::CircleShape visionShape;
   int vision;
   bool run = false;
+  bool wantToBreed = false;
 };
 
 #endif

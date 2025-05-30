@@ -16,16 +16,16 @@ bool includeInForwardList(std::forward_list<T> list, T elem) {
   return false;
 }
 
+bool Animal::breedable() {
+  return wantToBreed;
+}
+
 Animal::Animal(int x, int y, int s, int v) : Object(x, y, s) {
   vision = v;
   visionShape.setRadius(vision*1.f);
   visionShape.setFillColor(sf::Color(100, 100, 100, 50));
   int r = rand() % 360;
   this->direction = r;
-}
-
-Species Animal::getSpecies() {
-  return species;
 }
 
 void Animal::findDirection(int mapWidth, int mapHeight, Map map) {
@@ -40,10 +40,10 @@ void Animal::findDirection(int mapWidth, int mapHeight, Map map) {
   if (closestDistance != vision) return;
   for (auto& attractor : attractors) {
     int distance = sqrt(pow((attractor->getX() - x) % mapWidth, 2) + pow((attractor->getY() - y) % mapHeight, 2));
-    if (distance < size/2) {
+    if (distance < size/2 && attractor->getSpecies() != species) {
       attractor->kill();
     }
-    else if (distance < closestDistance) {
+    else if (distance < closestDistance && attractor->getId() != id) {
       closestDistance = distance;
       direction = atan2(attractor->getY() - y, attractor->getX() - x) * (180.0 / PI);
     }
@@ -90,6 +90,19 @@ void Animal::drawVision(sf::RenderWindow& window, int mapX, int mapY, int mapWID
   }
   visionShape.setPosition(actX*zoom+mapX, actY*zoom+mapY);
   window.draw(visionShape);
+}
+
+void Animal::aging() {
+  age++;
+  if (age > 5 && age % 3 == 0) {
+    wantToBreed = true;
+  }
+  if (rand() % (100 - age) == 0) alive = false;
+}
+
+void Animal::breeded() {
+  wantToBreed = false;
+  attractorSpecies.remove(species);
 }
 
 void Animal::chooseDetractor(std::forward_list<std::unique_ptr<Animal>>& animals, std::forward_list<std::unique_ptr<Fruit>>& fruits) {

@@ -7,6 +7,7 @@
 class Bear : public Animal {
   public:
   Bear(int, int, int, int);
+  void breed(std::forward_list<std::unique_ptr<Animal>>&) override;
   private:
 };
 

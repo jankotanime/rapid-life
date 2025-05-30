@@ -38,6 +38,8 @@ void App::update(sf::Time deltaTime) {
   if (start && !pause) {
     for (auto& animal : animals) animal->chooseDetractor(animals, fruits);
     for (auto& animal : animals) animal->findDirection(mapWIDTH, mapHEIGHT, map);
+
+    for (auto& animal : animals) animal->breed(animals);
     
     checkAlive(animals);
     checkAlive(fruits);

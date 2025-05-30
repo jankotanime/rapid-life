@@ -7,10 +7,6 @@ Fruit::Fruit(int x, int y, int s, int r) : Object(x, y, s), range(r) {
   rangeShape.setFillColor(sf::Color(100, 100, 100, 50));
 }
 
-Species Fruit::getSpecies() {
-  return species;
-}
-
 void Fruit::drawRange(sf::RenderWindow& window, int mapX, int mapY, int mapWIDTH, int mapHEIGHT, double zoom) {
   int actX = x+size-range;
   int actY = y+size-range;

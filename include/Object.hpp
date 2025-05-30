@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <forward_list>
+#include "./enum/Species.hpp"
 
 class Object {
   public:
@@ -10,6 +11,7 @@ class Object {
     ~Object() {};
     void draw(sf::RenderWindow&, int, int, int, int, double);
     sf::CircleShape shape;
+    Species getSpecies();
     virtual void aging();
     int getX();
     int getY();
@@ -21,6 +23,7 @@ class Object {
     bool operator==(Object&);
   
   protected:
+    Species species;
     std::string id;
     int x;
     int y;
