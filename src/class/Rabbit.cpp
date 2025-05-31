@@ -40,8 +40,8 @@ void Rabbit::breed(std::forward_list<std::unique_ptr<Animal>>& animals) {
 
 void Rabbit::aging() {
   age++;
-  if (age > 2 && age % 3 == 0) {
-    wantToBreed = true;
-  }
-  if (rand() % (7 - age) == 0) alive = false;
+  lastEaten++;
+  if (lastEaten > 5) alive = false;
+  if (age > 1 && age % 2 == 0) wantToBreed = true;
+  if (rand() % (8 - age) == 0) alive = false;
 }

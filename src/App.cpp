@@ -2,6 +2,10 @@
 #include <iostream>
 #include <math.h>
 #include <utility>
+#include "Berry.hpp"
+#include "Beaver.hpp"
+#include "Fox.hpp"
+#include "Lynx.hpp"
 
 App::App(sf::ContextSettings s, std::string name) : window(sf::VideoMode(App::WIDTH, App::HEIGHT), name, sf::Style::Default, s) {
   window.setFramerateLimit(60);
@@ -43,30 +47,43 @@ void App::init() {
   y = 0;
   zoom = 1;
 
-  for (int i = 0; i < rand() % 6 + 5; ++i) {
+  for (int i = 0; i < rand() % 11 + 10; ++i) {
     Point point = getSpawnPoint(std::forward_list{Water, Forest});
     fruits.push_front(std::make_unique<Carrot>(point.x, point.y, std::forward_list<std::string>()));
   }
-  // for (int i = 0; i < rand() % 6 + 5; ++i) {
-  //   Point point = getSpawnPoint(std::forward_list{Water, Forest});
-  //   fruits.push_front(std::make_unique<Carrot>(point.x, point.y, std::forward_list<std::string>()));
-  // }
-  for (int i = 0; i < rand() % 6 + 5; ++i) {
-    Point point = getSpawnPoint(std::forward_list{Water, Forest});
+  for (int i = 0; i < rand() % 11 + 10; ++i) {
+    Point point = getSpawnPoint(std::forward_list{Water, Savanna});
+    fruits.push_front(std::make_unique<Berry>(point.x, point.y, std::forward_list<std::string>()));
+  }
+  for (int i = 0; i < rand() % 11 + 10; ++i) {
+    Point point = getSpawnPoint(std::forward_list{Water});
     fruits.push_front(std::make_unique<Shroom>(point.x, point.y, 3, std::forward_list<std::string>()));
   }
-  for (int i = 0; i < rand() % 6 + 5; ++i) {
+  for (int i = 0; i < rand() % 3 + 3; ++i) {
     Point point = getSpawnPoint(std::forward_list{Water, Savanna});
     animals.push_front(std::make_unique<Bear>(point.x, point.y, std::forward_list<std::string>()));
   }
-  for (int i = 0; i < rand() % 6 + 5; ++i) {
+  for (int i = 0; i < rand() % 8 + 8; ++i) {
     Point point = getSpawnPoint(std::forward_list{Water, Forest, Savanna});
     animals.push_front(std::make_unique<Pig>(point.x, point.y, std::forward_list<std::string>()));
   }
-  for (int i = 0; i < rand() % 6 + 5; ++i) {
+  for (int i = 0; i < rand() % 6 + 10; ++i) {
     Point point = getSpawnPoint(std::forward_list{Water, Forest});
     animals.push_front(std::make_unique<Rabbit>(point.x, point.y, std::forward_list<std::string>()));
   }
+  for (int i = 0; i < rand() % 3 + 3; ++i) {
+    Point point = getSpawnPoint(std::forward_list{Water});
+    animals.push_front(std::make_unique<Fox>(point.x, point.y, std::forward_list<std::string>()));
+  }
+  for (int i = 0; i < rand() % 3 + 3; ++i) {
+    Point point = getSpawnPoint(std::forward_list{Water});
+    animals.push_front(std::make_unique<Lynx>(point.x, point.y, std::forward_list<std::string>()));
+  }
+  for (int i = 0; i < rand() % 3 + 8; ++i) {
+    Point point = getSpawnPoint(std::forward_list{Savanna});
+    animals.push_front(std::make_unique<Beaver>(point.x, point.y, std::forward_list<std::string>()));
+  }
+
 
   initial = false;
 }

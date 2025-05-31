@@ -34,6 +34,7 @@ class Animal : public Object {
   int vision;
   bool run = false;
   bool wantToBreed = false;
+  int lastEaten = 0;
 };
 
 #endif

@@ -41,6 +41,7 @@ void Animal::findDirection(int mapWidth, int mapHeight, Map map) {
   for (auto& attractor : attractors) {
     int distance = sqrt(pow((attractor->getX() - x) % mapWidth, 2) + pow((attractor->getY() - y) % mapHeight, 2));
     if (distance < size/2 && attractor->getSpecies() != species) {
+      lastEaten = 0;
       attractor->kill();
     }
     else if (distance < closestDistance && attractor->getId() != id) {
@@ -94,9 +95,9 @@ void Animal::drawVision(sf::RenderWindow& window, int mapX, int mapY, int mapWID
 
 void Animal::aging() {
   age++;
-  if (age > 5 && age % 3 == 0) {
-    wantToBreed = true;
-  }
+  lastEaten++;
+  if (lastEaten > 3) alive = false;
+  if (age > 5 && age % 3 == 0) wantToBreed = true;
   if (rand() % (100 - age) == 0) alive = false;
 }
 

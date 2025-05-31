@@ -11,7 +11,7 @@ Bear::Bear(int x, int y, std::forward_list<std::string> b) : Animal(x, y, 12, 12
   speed = 0.12;
   shape.setFillColor(sf::Color(100, 80, 30));
   species = Bears;
-  attractorSpecies = {};
+  attractorSpecies = {Shrooms};
   repulsersSpecies = {};
   repulsersBiomes = {Water, Savanna};
 }
@@ -40,8 +40,8 @@ void Bear::breed(std::forward_list<std::unique_ptr<Animal>>& animals) {
 
 void Bear::aging() {
   age++;
-  if (age > 5 && age % 3 == 0) {
-    wantToBreed = true;
-  }
-  if (rand() % (20 - age) == 0) alive = false;
+  lastEaten++;
+  if (lastEaten > 8) alive = false;
+  if (age > 5 && age % 3 == 0) wantToBreed = true;
+  if (rand() % (50 - age) == 0) alive = false;
 }
