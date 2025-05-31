@@ -18,7 +18,7 @@ class Object {
     int getSize();
     int getAge();
     bool isAlive();
-    void kill();
+    virtual void kill(Object*);
     std::string getId();
 
     bool operator==(Object&);

@@ -53,7 +53,7 @@ void App::init() {
   y = 0;
   zoom = 1;
 
-  for (int i = 0; i < rand() % 11 + 10; ++i) {
+  for (int i = 0; i < rand() % 11 + 20; ++i) {
     Point point = getSpawnPoint(std::forward_list{Water, Forest});
     fruits.push_front(std::make_unique<Carrot>(point.x, point.y, std::forward_list<std::string>()));
   }

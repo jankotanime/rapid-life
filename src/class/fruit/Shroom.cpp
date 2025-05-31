@@ -12,6 +12,11 @@ void Shroom::aging() {
   if (rand() % (5 - age) == 0) alive = false;
 }
 
+void Shroom::kill(Object* obj) {
+  if (rand() % 5 == 0) obj->kill(this);
+  alive = false;
+}
+
 void Shroom::reproduce(std::forward_list<std::unique_ptr<Fruit>>& fruits, 
 std::forward_list<Corpse>& corpses, Map map) {
   for (Corpse& corpse : corpses) {
@@ -20,7 +25,7 @@ std::forward_list<Corpse>& corpses, Map map) {
       double dy = corpse.getY() - y;
       double distance = dx * dx + dy * dy;
       if (distance < (range * range)) {
-        corpse.kill();
+        corpse.kill(this);
         std::forward_list<std::string> newBloodline = bloodline;
         newBloodline.push_front(id);
         fruits.push_front(std::make_unique<Shroom>(corpse.getX(), corpse.getY(), corpse.getSize(), newBloodline));

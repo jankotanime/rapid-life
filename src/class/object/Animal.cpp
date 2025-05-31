@@ -41,7 +41,7 @@ void Animal::findDirection(int mapWidth, int mapHeight, Map map) {
     int distance = sqrt(pow((attractor->getX() - x) % mapWidth, 2) + pow((attractor->getY() - y) % mapHeight, 2));
     if (distance < size/2 && attractor->getSpecies() != species) {
       lastEaten = 0;
-      attractor->kill();
+      attractor->kill(this);
     }
     else if (distance < closestDistance && attractor->getId() != id) {
       closestDistance = distance;

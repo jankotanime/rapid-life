@@ -46,7 +46,7 @@ bool Object::isAlive() {
   return alive;
 }
 
-void Object::kill() {
+void Object::kill(Object*) {
   alive = false;
 }
 

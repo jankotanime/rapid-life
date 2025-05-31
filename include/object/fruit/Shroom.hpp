@@ -10,6 +10,7 @@ class Shroom : public Fruit {
   ~Shroom() {}
   
   void aging() override;
+  void kill(Object*) override;
   void reproduce(std::forward_list<std::unique_ptr<Fruit>>&, std::forward_list<Corpse>&, Map) override;
   protected:
 };
