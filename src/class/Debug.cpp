@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "Debug.hpp"
+#include "method/Debug.hpp"
 #include "Map.hpp"
 
 Debug::Debug(int w, int h, int mW, int mH) : WIDTH(w), HEIGHT(h), mapWIDTH(mW), mapHEIGHT(mH) {}

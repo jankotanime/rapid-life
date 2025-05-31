@@ -5,17 +5,12 @@
 #include <forward_list>
 #include <iostream>
 #include <memory>
-#include "Fruit.hpp"
-#include "Animal.hpp"
-#include "Pig.hpp"
-#include "Bear.hpp"
 #include "Map.hpp"
-#include "Carrot.hpp"
-#include "Rabbit.hpp"
-#include "Corpse.hpp"
-#include "FindList.hpp"
-#include "Debug.hpp"
-#include "Shroom.hpp"
+#include "./object/Fruit.hpp"
+#include "./object/Animal.hpp"
+#include "./object/Corpse.hpp"
+#include "./method/FindList.hpp"
+#include "./method/Debug.hpp"
 
 struct Point { int x, y; };
 
