@@ -7,13 +7,13 @@
 template<typename T>
 bool includeInForwardList(std::forward_list<T>, T);
 
-Rabbit::Rabbit(int x, int y, int s, int v, std::forward_list<std::string> b) : Animal(x, y, s, v, b) {
-  speed = 0.15;
+Rabbit::Rabbit(int x, int y, std::forward_list<std::string> b) : Animal(x, y, 5, 100, b) {
+  speed = 0.17;
   shape.setFillColor(sf::Color(200, 200, 150));
   species = Rabbits;
   attractorSpecies = {Carrots};
   repulsersSpecies = {};
-  repulsersBiomes = {Water};
+  repulsersBiomes = {Water, Forest};
 }
 
 void Rabbit::breed(std::forward_list<std::unique_ptr<Animal>>& animals) {
@@ -28,7 +28,7 @@ void Rabbit::breed(std::forward_list<std::unique_ptr<Animal>>& animals) {
         std::forward_list<std::string> newBloodline = bloodline;
         newBloodline.push_front(id);
         newBloodline.push_front(animal->getId());
-        animals.push_front(std::make_unique<Rabbit>(x, y, size, vision, newBloodline));
+        animals.push_front(std::make_unique<Rabbit>(x, y, newBloodline));
         wantToBreed = false;
         animal->breeded();
         attractorSpecies.remove(species);
@@ -36,4 +36,12 @@ void Rabbit::breed(std::forward_list<std::unique_ptr<Animal>>& animals) {
       }
     }
   }
-};
+}
+
+void Rabbit::aging() {
+  age++;
+  if (age > 2 && age % 3 == 0) {
+    wantToBreed = true;
+  }
+  if (rand() % (7 - age) == 0) alive = false;
+}

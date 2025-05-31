@@ -9,6 +9,12 @@ void App::aging(std::forward_list<std::unique_ptr<T>>& objects) {
   }
 }
 
+void agingCorpses(std::forward_list<Corpse>& corpses) {
+  for (auto& corpse : corpses) {
+    corpse.aging();
+  }
+}
+
 template<typename T>
 void App::checkAlive(std::forward_list<std::unique_ptr<T>>& objects) {
   objects.remove_if([this](std::unique_ptr<T>& object) {
@@ -55,10 +61,11 @@ void App::update(sf::Time deltaTime) {
       // ? rok w symulatorze
       aging(animals);
       aging(fruits);
+      agingCorpses(corpses);
+      for (auto& fruit : fruits) fruit->reproduce(fruits, corpses, map);
     }
     if (updateTick % 600 == 0) {
       // ? 3 lata w symulatorze
-      for (auto& fruit : fruits) fruit->reproduce(fruits, corpses, map);
     }
     if (updateTick % 20000 == 0) {
       // ? 100 lat w symulatorze

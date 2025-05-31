@@ -8,13 +8,13 @@
 template<typename T>
 bool includeInForwardList(std::forward_list<T>, T);
 
-Pig::Pig(int x, int y, int s, int v, std::forward_list<std::string> b) : Animal(x, y, s, v, b) {
-  speed = 0.13;
+Pig::Pig(int x, int y, std::forward_list<std::string> b) : Animal(x, y, 8, 150, b) {
+  speed = 0.14;
   shape.setFillColor(sf::Color(250, 200, 220));
   species = Pigs;
-  attractorSpecies = {Carrots};
+  attractorSpecies = {Carrots, Shrooms};
   repulsersSpecies = {Bears};
-  repulsersBiomes = {Water};
+  repulsersBiomes = {Water, Savanna, Forest};
 }
 
 void Pig::breed(std::forward_list<std::unique_ptr<Animal>>& animals) {
@@ -29,7 +29,7 @@ void Pig::breed(std::forward_list<std::unique_ptr<Animal>>& animals) {
         std::forward_list<std::string> newBloodline = bloodline;
         newBloodline.push_front(id);
         newBloodline.push_front(animal->getId());
-        animals.push_front(std::make_unique<Pig>(x, y, size, vision, newBloodline));
+        animals.push_front(std::make_unique<Pig>(x, y, newBloodline));
         wantToBreed = false;
         animal->breeded();
         attractorSpecies.remove(species);
@@ -37,4 +37,12 @@ void Pig::breed(std::forward_list<std::unique_ptr<Animal>>& animals) {
       }
     }
   }
-};
+}
+
+void Pig::aging() {
+  age++;
+  if (age > 3 && age % 4 == 0) {
+    wantToBreed = true;
+  }
+  if (rand() % (15 - age) == 0) alive = false;
+}

@@ -9,7 +9,7 @@ Shroom::Shroom(int x, int y, int s, std::forward_list<std::string> b) : Fruit(x,
 
 void Shroom::aging() {
   age++;
-  if (rand() % (10 - age) == 0) alive = false;
+  if (rand() % (4 - age) == 0) alive = false;
 }
 
 void Shroom::reproduce(std::forward_list<std::unique_ptr<Fruit>>& fruits, 

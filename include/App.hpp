@@ -17,13 +17,15 @@
 #include "Debug.hpp"
 #include "Shroom.hpp"
 
+struct Point { int x, y; };
+
 class App {
 public:
-  int WIDTH = 800;
-  int HEIGHT = 600;
-  int mapWIDTH = 2000; // best 2000 - 4000
-  int mapHEIGHT = 2000; // best 2000 - 4000
-  bool menu = true;
+int HEIGHT = 600;
+int mapWIDTH = 2000; // best 2000 - 4000
+int mapHEIGHT = 2000; // best 2000 - 4000
+bool menu = true;
+int WIDTH = 800;
   bool start = false;
   bool initial = false;
   bool pause = false;
@@ -41,6 +43,7 @@ public:
   void run();
   
   private:
+  Point getSpawnPoint(std::forward_list<Biome>);
   void processEvents();
   void update(sf::Time);
   void render();

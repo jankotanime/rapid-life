@@ -8,5 +8,5 @@ Corpse::Corpse(int x, int y, int s, std::forward_list<std::string> b) : Object(x
 
 void Corpse::aging() {
   age++;
-  if (rand() % (5 - age) == 0) alive = false;
+  if (rand() % (3 - age) == 0) alive = false;
 }

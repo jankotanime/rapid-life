@@ -2,7 +2,7 @@
 #include <iostream>
 #include "Carrot.hpp"
 
-Carrot::Carrot(int x, int y, int s, std::forward_list<std::string> b) : Fruit(x, y, s, 300, b) {
+Carrot::Carrot(int x, int y, std::forward_list<std::string> b) : Fruit(x, y, 5, 300, b) {
   shape.setFillColor(sf::Color(200, 150, 50));
   species = Carrots;
   badBiomes = {Water, Forest};
@@ -10,7 +10,7 @@ Carrot::Carrot(int x, int y, int s, std::forward_list<std::string> b) : Fruit(x,
 
 void Carrot::aging() {
   age++;
-  if (rand() % (7 - age) == 0) alive = false;
+  if (rand() % (2 - age) == 0) alive = false;
 }
 
 void Carrot::reproduce(std::forward_list<std::unique_ptr<Fruit>>& fruits, std::forward_list<Corpse>&, Map map) {
@@ -22,7 +22,7 @@ void Carrot::reproduce(std::forward_list<std::unique_ptr<Fruit>>& fruits, std::f
     && !map.isPointInBiomes(badBiomes, vector)) {
       std::forward_list<std::string> newBloodline = bloodline;
       newBloodline.push_front(id);
-      fruits.push_front(std::make_unique<Carrot>(newX, newY, size, newBloodline));
+      fruits.push_front(std::make_unique<Carrot>(newX, newY, newBloodline));
       return;
     }
   }

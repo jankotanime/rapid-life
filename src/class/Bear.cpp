@@ -7,13 +7,13 @@
 template<typename T>
 bool includeInForwardList(std::forward_list<T>, T);
 
-Bear::Bear(int x, int y, int s, int v, std::forward_list<std::string> b) : Animal(x, y, s, v, b) {
+Bear::Bear(int x, int y, std::forward_list<std::string> b) : Animal(x, y, 12, 120, b) {
   speed = 0.12;
   shape.setFillColor(sf::Color(100, 80, 30));
   species = Bears;
   attractorSpecies = {};
   repulsersSpecies = {};
-  repulsersBiomes = {Water};
+  repulsersBiomes = {Water, Savanna};
 }
 
 void Bear::breed(std::forward_list<std::unique_ptr<Animal>>& animals) {
@@ -28,7 +28,7 @@ void Bear::breed(std::forward_list<std::unique_ptr<Animal>>& animals) {
         std::forward_list<std::string> newBloodline = bloodline;
         newBloodline.push_front(id);
         newBloodline.push_front(animal->getId());
-        animals.push_front(std::make_unique<Bear>(x, y, size, vision, newBloodline));
+        animals.push_front(std::make_unique<Bear>(x, y, newBloodline));
         wantToBreed = false;
         animal->breeded();
         attractorSpecies.remove(species);
@@ -36,4 +36,12 @@ void Bear::breed(std::forward_list<std::unique_ptr<Animal>>& animals) {
       }
     }
   }
-};
+}
+
+void Bear::aging() {
+  age++;
+  if (age > 5 && age % 3 == 0) {
+    wantToBreed = true;
+  }
+  if (rand() % (20 - age) == 0) alive = false;
+}
