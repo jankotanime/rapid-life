@@ -7,18 +7,20 @@ void App::findingObject() {
     findingList();
     if (findList == nullptr) return;
   }
-  if (find == nullptr) {
+  if (findList->begin() != findList->end()) {
+    if (find == nullptr) {
+      find = std::shared_ptr<Object>(&findList.get()->front(), [](Object*){});
+    }
+    bool returnNext = false;
+    for (Object& object : *findList) {
+      if (returnNext) {
+        find = std::shared_ptr<Object>(&object, [](Object*){});
+        return;
+      }
+      returnNext = object.getId() == find->getId();
+    }
     find = std::shared_ptr<Object>(&findList.get()->front(), [](Object*){});
   }
-  bool returnNext = false;
-  for (Object& object : *findList) {
-    if (returnNext) {
-      find = std::shared_ptr<Object>(&object, [](Object*){});
-      return;
-    }
-    returnNext = object.getId() == find->getId();
-  }
-  find = std::shared_ptr<Object>(&findList.get()->front(), [](Object*){});
 }
 
 void App::findingList() {

@@ -43,6 +43,9 @@ int WIDTH = 800;
   void run();
   
   private:
+  unsigned int frameCount = 0;
+  float fps = 0.0f;
+  sf::Clock fpsClock;
   Point getSpawnPoint(std::forward_list<Biome>);
   void processEvents();
   void update(sf::Time);

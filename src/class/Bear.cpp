@@ -11,7 +11,7 @@ Bear::Bear(int x, int y, std::forward_list<std::string> b) : Animal(x, y, 12, 12
   speed = 0.12;
   shape.setFillColor(sf::Color(100, 80, 30));
   species = Bears;
-  attractorSpecies = {Shrooms};
+  attractorSpecies = {Berries, Carrots, Shrooms};
   repulsersSpecies = {};
   repulsersBiomes = {Water, Savanna};
 }

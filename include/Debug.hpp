@@ -8,7 +8,7 @@
 class Debug {
   public:
   Debug(int, int, int, int);
-  void paintMouseCords(sf::RenderWindow&, Map, int, int, double);
+  void paintMouseCords(sf::RenderWindow&, Map, int, int, double, float);
   void show();
   bool getShown();
   private:

@@ -2,8 +2,8 @@
 #include <iostream>
 #include "Berry.hpp"
 
-Berry::Berry(int x, int y, std::forward_list<std::string> b) : Fruit(x, y, 5, 300, b) {
-  shape.setFillColor(sf::Color(200, 150, 50));
+Berry::Berry(int x, int y, std::forward_list<std::string> b) : Fruit(x, y, 5, 800, b) {
+  shape.setFillColor(sf::Color(200, 80, 230));
   species = Carrots;
   badBiomes = {Water, Savanna};
 }
@@ -14,6 +14,7 @@ void Berry::aging() {
 }
 
 void Berry::reproduce(std::forward_list<std::unique_ptr<Fruit>>& fruits, std::forward_list<Corpse>&, Map map) {
+  if (rand() % 3 < 2) return;
   while (true) {
     int newX = x + (rand() % (2 * range + 1)) - range;
     int newY = y + (rand() % (2 * range + 1)) - range;

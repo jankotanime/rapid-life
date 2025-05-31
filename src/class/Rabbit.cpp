@@ -9,7 +9,7 @@ bool includeInForwardList(std::forward_list<T>, T);
 
 Rabbit::Rabbit(int x, int y, std::forward_list<std::string> b) : Animal(x, y, 5, 100, b) {
   speed = 0.17;
-  shape.setFillColor(sf::Color(200, 200, 150));
+  shape.setFillColor(sf::Color(180, 170, 120));
   species = Rabbits;
   attractorSpecies = {Carrots};
   repulsersSpecies = {};

@@ -70,14 +70,31 @@ void paintObjectStats(sf::RenderWindow& window, std::shared_ptr<Object> object) 
   text.setPosition(10, 90);
   text.setString("age: " + std::to_string(object->getAge()));
   window.draw(text);
+  text.setPosition(10, 110);
+  std::string species;
+  switch (object->getSpecies()) {
+    case Bears:    species = "Bear"; break;
+    case Carrots:  species = "Carrot"; break;
+    case Pigs:     species = "Pig"; break;
+    case Rabbits:  species = "Rabbit"; break;
+    case Shrooms:  species = "Shroom"; break;
+    case Foxes:    species = "Fox"; break;
+    case Lynxes:   species = "Lynx"; break;
+    case Berries:  species = "Berry"; break;
+    case Beavers:  species = "Beaver"; break;
+    default:       species = "Corpses"; break;
+  }
+  text.setString("Species: " + species);
+  window.draw(text);
 
-  text.setPosition(10, 120);
+
+  text.setPosition(10, 140);
   text.setString("Bloodline: ");
   window.draw(text);
 
   int i = 0;
   for (std::string blood : object->getBloodline()) {
-    text.setPosition(10, 140 + 20*i);
+    text.setPosition(10, 160 + 20*i);
     text.setString(blood);
     window.draw(text);
     i++;

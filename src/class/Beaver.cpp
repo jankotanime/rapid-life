@@ -7,12 +7,12 @@
 template<typename T>
 bool includeInForwardList(std::forward_list<T>, T);
 
-Beaver::Beaver(int x, int y, std::forward_list<std::string> b) : Animal(x, y, 8, 130, b) {
+Beaver::Beaver(int x, int y, std::forward_list<std::string> b) : Animal(x, y, 6, 100, b) {
   speed = 0.15;
-  shape.setFillColor(sf::Color(100, 80, 30));
+  shape.setFillColor(sf::Color(120, 100, 80));
   species = Beavers;
   attractorSpecies = {Carrots, Berries};
-  repulsersSpecies = {};
+  repulsersSpecies = {Foxes, Lynxes, Bears};
   repulsersBiomes = {Savanna};
 }
 

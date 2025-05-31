@@ -17,19 +17,22 @@ void App::render() {
     if (range) {
       for (auto& fruit : fruits) fruit->drawRange(window, x, y, mapWIDTH, mapHEIGHT, zoom);
     }
-    if (debug.getShown()) {
-      debug.paintMouseCords(window, map, x, y, zoom);
-    }
-    if (find != nullptr) {
-      paintObjectStats(window, find);
-    }
     for (auto& animal : animals) animal->draw(window, x, y, mapWIDTH, mapHEIGHT, zoom);
     for (auto& fruit : fruits) fruit->draw(window, x, y, mapWIDTH, mapHEIGHT, zoom);
     for (Corpse& corpse : corpses) corpse.draw(window, x, y, mapWIDTH, mapHEIGHT, zoom);
     if (find != nullptr) {
       paintFindObject(window, find, x, y, mapWIDTH, mapHEIGHT, zoom);
+      paintObjectStats(window, find);
     }
   }
-
+  frameCount++;
+  if (fpsClock.getElapsedTime().asSeconds() >= 1.0f) {
+    fps = frameCount / fpsClock.getElapsedTime().asSeconds();
+    frameCount = 0;
+    fpsClock.restart();
+  }
+  if (debug.getShown()) {
+    debug.paintMouseCords(window, map, x, y, zoom, fps);
+  }
   window.display();
 }

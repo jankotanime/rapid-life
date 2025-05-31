@@ -13,7 +13,7 @@ bool Debug::getShown() {
   return shown;
 }
 
-void Debug::paintMouseCords(sf::RenderWindow& window, Map map, int mapX, int mapY, double zoom) {
+void Debug::paintMouseCords(sf::RenderWindow& window, Map map, int mapX, int mapY, double zoom, float fps) {
   sf::Font font;
   if (!font.loadFromFile("src/SparkyStonesRegular-BW6ld.ttf")) {
     std::cout << "Error: Problem z czcionką!" << std::endl;
@@ -50,22 +50,15 @@ void Debug::paintMouseCords(sf::RenderWindow& window, Map map, int mapX, int map
   Biome biome = map.getCordsChunk(position2f);
 
   text.setPosition(WIDTH-100, 20);
-  switch (biome)
-  {
-  case 0:
-    text.setString("Biome: Plains");
-    break;
-  case 1:
-    text.setString("Biome: Pond");
-    break;
-  case 2:
-    text.setString("Biome: Forest");
-    break;
-  case 3:
-    text.setString("Biome: Savanna");
-    break;
-  default:
-    return;
+  switch (biome) {
+    case 0: text.setString("Biome: Plains"); break;
+    case 1: text.setString("Biome: Pond"); break;
+    case 2: text.setString("Biome: Forest"); break;
+    case 3: text.setString("Biome: Savanna"); break;
+    default: return;
   }
+  window.draw(text);
+  text.setPosition(WIDTH-100, 35);
+  text.setString("FPS: " + std::to_string(static_cast<int>(fps)));
   window.draw(text);
 }
