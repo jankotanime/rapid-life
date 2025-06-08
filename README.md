@@ -3,7 +3,7 @@
 
 ---
 
-**Rapid life** is an ecosystem simulator written in C++ using the SFML library. The program allows you to observe interactions between animals and plants on a procedurally generated map.
+**Rapid life** is an ecosystem simulator written in C++ using the SFML library. The program allows you to observe interactions between animals and plants on a procedurally generated map. [Go to preview](#preview)
 
 ## Environment Setup:
 
@@ -40,3 +40,7 @@
 - R – toggle plant range
 - Space – pause/start
 - Backspace – debug mode
+
+## Preview:
+![ezgif-2444b1affe701f](https://github.com/user-attachments/assets/0c916a31-2f0f-4926-9d30-17fc95a3d1a1)
+
